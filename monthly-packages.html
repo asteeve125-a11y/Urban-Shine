@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Packages | Urban Shine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Logo.png" alt="Urban Shine Logo">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="monthly-packages.html" class="active">Monthly Packages</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="contact-number">
+                    <i class="fas fa-phone-alt"></i> +91 7567254083
+                </div>
+                <a href="contact.html" class="btn-book-now">Book Now</a>
+                <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1>Monthly Subscriptions</h1>
+        <p>Get a guaranteed 10% discount on all monthly packages. Keep your car shining all month long!</p>
+    </div>
+
+    <div class="page-content">
+        <!-- New Search Bar -->
+        <div class="category-search-container" style="max-width: 600px; margin: 0 auto 40px auto; text-align: center; background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--border);">
+            <h3 style="margin-bottom: 20px; color: var(--dark);">Find Your Car Category</h3>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <input type="text" id="carSearchInput" placeholder="e.g. Mahindra XUV500" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 16px;">
+                <button onclick="findCarCategory()" style="padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold;">Check Category</button>
+            </div>
+            <div id="carSearchResult" style="margin-top: 15px; font-weight: bold; font-size: 18px; min-height: 27px;"></div>
+        </div>
+
+        <div class="services-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1200px; margin: auto; gap: 30px; align-items: stretch;">
+            <!-- HATCHBACK -->
+            <div class="pricing-table-card">
+                <div class="pricing-header" style="background: var(--primary);">
+                    <div style="width:100%; text-align:center; font-size:18px;">HATCHBACK</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Standard Wash</div>
+                    <div class="col-monthly">₹180 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Premium Wash</div>
+                    <div class="col-monthly">₹270 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Deep Cleaning</div>
+                    <div class="col-monthly">₹540 / wash</div>
+                </div>
+                <div class="pricing-note">* Monthly packages include up to 4 washes per month</div>
+                <a href="contact.html" class="btn-view-all">Subscribe Now</a>
+            </div>
+
+            <!-- SEDAN -->
+            <div class="pricing-table-card">
+                <div class="pricing-header" style="background: var(--primary);">
+                    <div style="width:100%; text-align:center; font-size:18px;">SEDAN</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Standard Wash</div>
+                    <div class="col-monthly">₹212 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Premium Wash</div>
+                    <div class="col-monthly">₹315 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Deep Cleaning</div>
+                    <div class="col-monthly">₹630 / wash</div>
+                </div>
+                <div class="pricing-note">* Monthly packages include up to 4 washes per month</div>
+                <a href="contact.html" class="btn-view-all">Subscribe Now</a>
+            </div>
+
+            <!-- COMPACT SUV -->
+            <div class="pricing-table-card">
+                <div class="pricing-header" style="background: var(--dark);">
+                    <div style="width:100%; text-align:center; font-size:18px;">COMPACT SUV</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Standard Wash</div>
+                    <div class="col-monthly">₹243 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Premium Wash</div>
+                    <div class="col-monthly">₹360 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Deep Cleaning</div>
+                    <div class="col-monthly">₹720 / wash</div>
+                </div>
+                <div class="pricing-note">* Monthly packages include up to 4 washes per month</div>
+                <a href="contact.html" class="btn-view-all">Subscribe Now</a>
+            </div>
+
+            <!-- SUV 5 SEATER -->
+            <div class="pricing-table-card">
+                <div class="pricing-header" style="background: var(--dark);">
+                    <div style="width:100%; text-align:center; font-size:18px;">SUV 5 SEATER</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Standard Wash</div>
+                    <div class="col-monthly">₹270 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Premium Wash</div>
+                    <div class="col-monthly">₹405 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Deep Cleaning</div>
+                    <div class="col-monthly">₹810 / wash</div>
+                </div>
+                <div class="pricing-note">* Monthly packages include up to 4 washes per month</div>
+                <a href="contact.html" class="btn-view-all">Subscribe Now</a>
+            </div>
+
+            <!-- SUV 7 SEATER -->
+            <div class="pricing-table-card">
+                <div class="pricing-header" style="background: var(--darker);">
+                    <div style="width:100%; text-align:center; font-size:18px;">SUV 7 SEATER</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Standard Wash</div>
+                    <div class="col-monthly">₹302 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Premium Wash</div>
+                    <div class="col-monthly">₹450 / wash</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="col-name">Deep Cleaning</div>
+                    <div class="col-monthly">₹900 / wash</div>
+                </div>
+                <div class="pricing-note">* Monthly packages include up to 4 washes per month</div>
+                <a href="contact.html" class="btn-view-all">Subscribe Now</a>
+            </div>
+
+        </div></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo">
+                    <img src="Logo.png" alt="Urban Shine">
+                </div>
+                <p>Urban Shine - Professional Car Wash at Your Doorstep.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+                <div class="footer-socials" style="margin-top: 15px;">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Urban Shine. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

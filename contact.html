@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Booking | Urban Shine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        @media (max-width: 991px) { .contact-layout { grid-template-columns: 1fr; } }
+        .contact-details {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .contact-details h3 { font-size: 24px; margin-bottom: 25px; color: var(--dark); }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .contact-text h4 { font-size: 16px; margin-bottom: 5px; color: var(--dark); }
+        .contact-text p { font-size: 14px; color: var(--text-muted); }
+
+        .booking-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .booking-form h3 { font-size: 24px; margin-bottom: 25px; color: var(--dark); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-control:focus { outline: none; border-color: var(--primary); }
+        .btn-submit {
+            width: 100%;
+            background: #25D366;
+            color: var(--white);
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { background: #1eb956; }
+        .btn-submit-direct {
+            background: var(--primary);
+            margin-top: 15px;
+        }
+        .btn-submit-direct:hover {
+            background: #195ac7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Logo.png" alt="Urban Shine Logo">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html" class="active">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="contact-number">
+                    <i class="fas fa-phone-alt"></i> +91 7567254083
+                </div>
+                <a href="contact.html" class="btn-book-now">Book Now</a>
+                <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1>Contact & Booking</h1>
+        <p>Book your wash or get in touch with us for any inquiries.</p>
+    </div>
+
+    <div class="page-content">
+        <div class="contact-layout">
+            
+            <div class="contact-details">
+                <h3>Get In Touch</h3>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-text">
+                        <h4>Our Location</h4>
+                        <p>Gandhinagar, Gujarat, India</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-text">
+                        <h4>Call Us</h4>
+                        <p>+91 7567254083</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="far fa-envelope"></i></div>
+                    <div class="contact-text">
+                        <h4>Email Us</h4>
+                        <p>info@urbanshine.in</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="far fa-clock"></i></div>
+                    <div class="contact-text">
+                        <h4>Working Hours</h4>
+                        <p>Monday - Sunday<br>7:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form">
+                <h3>Book Your Wash</h3>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Area / Location</label>
+                        <input type="text" id="area" class="form-control" placeholder="e.g. Vastrapur, Satellite" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Building & House Number</label>
+                        <input type="text" id="house" class="form-control" placeholder="Complete address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Car Model</label>
+                        <input type="text" id="car" class="form-control" placeholder="e.g. Hyundai i20, Kia Seltos" required>
+                        <div id="liveCategoryResult" style="margin-top: 5px; font-weight: bold; font-size: 14px; min-height: 20px; transition: 0.3s;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date" id="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:10px;">Type of Package</label>
+                        <div class="radio-group" style="display: flex; flex-direction: column; gap: 10px;">
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="packageType" value="One Time" checked style="margin-right: 8px;">One Time</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="packageType" value="Monthly Package" style="margin-right: 8px;">Monthly Package</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:10px;">Type of Wash</label>
+                        <div class="radio-group" style="display: flex; flex-direction: column; gap: 10px;">
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="washType" value="Standard Wash" checked style="margin-right: 8px;">Standard Wash</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="washType" value="Premium Wash" style="margin-right: 8px;">Premium Wash</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="washType" value="Deep Cleaning" style="margin-right: 8px;">Deep Cleaning</label>
+                        </div>
+                    </div>
+                    <button type="submit" id="submitBtnWhatsApp" class="btn-submit" name="submitType" value="whatsapp">
+                        <i class="fab fa-whatsapp" style="font-size: 20px;"></i> Book Via WhatsApp
+                    </button>
+                    <button type="submit" id="submitBtnDirect" class="btn-submit btn-submit-direct" name="submitType" value="direct">
+                        <i class="fas fa-check-circle" style="font-size: 20px;"></i> Book Now
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo">
+                    <img src="Logo.png" alt="Urban Shine">
+                </div>
+                <p>Urban Shine - Professional Car Wash at Your Doorstep.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+                <div class="footer-socials" style="margin-top: 15px;">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Urban Shine. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

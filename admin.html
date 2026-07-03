@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Urban Shine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body { padding: 40px; background: #f4f7f6; }
+        .dashboard-container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        h1 { margin-bottom: 20px; color: var(--dark); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: var(--primary); color: white; }
+        tr:hover { background: #f1f1f1; }
+        .badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .badge-package { background: #e0f7fa; color: #00838f; }
+        .badge-wash { background: #e8eaf6; color: #283593; }
+        .refresh-btn { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 20px; }
+        .home-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <a href="index.html" class="home-link"><i class="fas fa-arrow-left"></i> Back to Website</a>
+        <h1>🚗 Urban Shine Bookings Dashboard</h1>
+        <button class="refresh-btn" onclick="fetchBookings()"><i class="fas fa-sync-alt"></i> Refresh Data</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date Received</th>
+                    <th>Customer Name</th>
+                    <th>Location</th>
+                    <th>Car Model</th>
+                    <th>Preferred Date</th>
+                    <th>Package Type</th>
+                    <th>Wash Type</th>
+                </tr>
+            </thead>
+            <tbody id="bookingsTableBody">
+                <tr><td colspan="8" style="text-align:center;">Loading bookings...</td></tr>
+            </tbody>
+        </table>
+        
+        <h1 style="margin-top: 50px;">⭐ Customer Reviews</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date Received</th>
+                    <th>Customer Name</th>
+                    <th>Location</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody id="reviewsTableBody">
+                <tr><td colspan="6" style="text-align:center;">Loading reviews...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchBookings() {
+            const tbody = document.getElementById('bookingsTableBody');
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading bookings...</td></tr>';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/bookings');
+                const bookings = await response.json();
+                
+                if (bookings.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No bookings found.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                bookings.forEach(b => {
+                    const tr = document.createElement('tr');
+                    // Append 'Z' to tell JavaScript this is a UTC timestamp, so it converts to local time correctly
+                    const receivedDate = new Date(b.created_at + 'Z').toLocaleString('en-IN', {
+                        dateStyle: 'medium',
+                        timeStyle: 'short'
+                    });
+                    
+                    tr.innerHTML = `
+                        <td>#${b.id}</td>
+                        <td>${receivedDate}</td>
+                        <td><strong>${b.name}</strong></td>
+                        <td>${b.house}, ${b.area}</td>
+                        <td>${b.car}</td>
+                        <td style="color:var(--primary); font-weight:bold;">${b.date}</td>
+                        <td><span class="badge badge-package">${b.packageType}</span></td>
+                        <td><span class="badge badge-wash">${b.washType}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error("Error fetching bookings:", error);
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:red;">Error loading bookings. Make sure the server is running.</td></tr>';
+            }
+        }
+        
+        async function fetchReviews() {
+            const tbody = document.getElementById('reviewsTableBody');
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading reviews...</td></tr>';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews');
+                const reviews = await response.json();
+                
+                if (reviews.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No reviews found.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                reviews.forEach(r => {
+                    const tr = document.createElement('tr');
+                    const receivedDate = new Date(r.created_at + 'Z').toLocaleString('en-IN', {
+                        dateStyle: 'medium',
+                        timeStyle: 'short'
+                    });
+                    
+                    let starsHtml = '';
+                    for (let i = 0; i < 5; i++) {
+                        starsHtml += i < r.rating ? '<i class="fas fa-star" style="color:#f1c40f;"></i>' : '<i class="far fa-star" style="color:#ccc;"></i>';
+                    }
+                    
+                    tr.innerHTML = `
+                        <td>#${r.id}</td>
+                        <td>${receivedDate}</td>
+                        <td><strong>${r.name}</strong></td>
+                        <td>${r.city}</td>
+                        <td>${starsHtml}</td>
+                        <td><em>"${r.reviewText}"</em></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Error loading reviews. Make sure the server is running.</td></tr>';
+            }
+        }
+        
+        // Fetch on load
+        fetchBookings();
+        fetchReviews();
+    </script>
+</body>
+</html>

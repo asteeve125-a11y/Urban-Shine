@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews | Urban Shine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Logo.png" alt="Urban Shine Logo">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                <li><a href="reviews.html" class="active">Reviews</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="contact-number">
+                    <i class="fas fa-phone-alt"></i> +91 7567254083
+                </div>
+                <a href="contact.html" class="btn-book-now">Book Now</a>
+                <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1>What Our Customers Say</h1>
+        <p>Read about the experiences of our happy clients</p>
+    </div>
+
+    <div class="page-content">
+        
+        <!-- Leave a Review Form -->
+        <div class="review-form-container" style="max-width: 600px; margin: 0 auto 40px auto; background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--border);">
+            <h3 style="margin-bottom: 20px; color: var(--dark); text-align: center;">Leave a Review</h3>
+            <form id="reviewForm">
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="reviewerName" placeholder="Your Name" required style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit;">
+                    <input type="text" id="reviewerCity" placeholder="City" required style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit;">
+                </div>
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Rating</label>
+                    <div id="starRating" style="color: #f1c40f; font-size: 24px; cursor: pointer;">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="ratingValue" value="5">
+                </div>
+                <textarea id="reviewText" placeholder="Write your review here..." required style="width: 100%; height: 100px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 15px; resize: vertical; font-family: inherit;"></textarea>
+                <button type="submit" id="submitReviewBtn" style="width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.3s;">Submit Review</button>
+            </form>
+        </div>
+
+        <div class="reviews-grid" id="reviewsGrid">
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Very professional and punctual team. My car looks brand new! Highly recommend their premium wash."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Ritesh+Shah&background=random" alt="Ritesh Shah">
+                    <div class="reviewer-info">
+                        <h5>Ritesh Sharma</h5>
+                        <span>Gandhinagar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Excellent service at my society. Very convenient and affordable. The staff is polite and well trained."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Priya+Mehta&background=random" alt="Priya Mehta">
+                    <div class="reviewer-info">
+                        <h5>Raj Maheta</h5>
+                        <span>Gandhinagar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Best car wash service I have used so far. Highly recommended! They clean every nook and corner."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Kunal+Desai&background=random" alt="Kunal Desai">
+                    <div class="reviewer-info">
+                        <h5>Ravi Abuwala</h5>
+                        <span>Gandhinagar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"They save water and deliver premium quality. Great work! Subscribed to their monthly package instantly."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Neha+Patel&background=random" alt="Neha Patel">
+                    <div class="reviewer-info">
+                        <h5>Viraj Patel</h5>
+                        <span>Gandhinagar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Professional staff and quick service. Loved the door-step convenience."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Amit+Raval&background=random" alt="Amit Raval">
+                    <div class="reviewer-info">
+                        <h5>Amit Raval</h5>
+                        <span>Gandhinagar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Best detailing service in the city. The shine on my SUV is unbelievable."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Vivek+Mehta&background=random" alt="Vivek Mehta">
+                    <div class="reviewer-info">
+                        <h5>Vivek Mehta</h5>
+                        <span>Gandhinagar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo">
+                    <img src="Logo.png" alt="Urban Shine">
+                </div>
+                <p>Urban Shine - Professional Car Wash at Your Doorstep.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+                <div class="footer-socials" style="margin-top: 15px;">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Urban Shine. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Star Rating Logic
+        const stars = document.querySelectorAll('#starRating .fa-star');
+        const ratingInput = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingInput.value = rating;
+                updateStars(rating);
+            });
+            star.addEventListener('mouseover', function() {
+                const rating = this.getAttribute('data-rating');
+                updateStars(rating, true);
+            });
+            star.addEventListener('mouseout', function() {
+                updateStars(ratingInput.value);
+            });
+        });
+
+        function updateStars(rating, isHover = false) {
+            stars.forEach(star => {
+                const starRating = star.getAttribute('data-rating');
+                if (starRating <= rating) {
+                    star.style.color = '#f1c40f'; // Yellow
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.style.color = '#ccc'; // Gray
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
+
+        // Fetch and render reviews
+        async function loadReviews() {
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews');
+                const reviews = await response.json();
+                const grid = document.getElementById('reviewsGrid');
+                
+                reviews.forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'review-card';
+                    
+                    let starsHtml = '';
+                    for (let i = 0; i < 5; i++) {
+                        starsHtml += i < review.rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+                    }
+
+                    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=random`;
+
+                    card.innerHTML = `
+                        <div class="stars" style="color:#f1c40f; margin-bottom:15px;">${starsHtml}</div>
+                        <p class="review-text">"${review.reviewText}"</p>
+                        <div class="reviewer">
+                            <img src="${avatarUrl}" alt="${review.name}">
+                            <div class="reviewer-info">
+                                <h5>${review.name}</h5>
+                                <span>${review.city}</span>
+                            </div>
+                        </div>
+                    `;
+                    // Prepend so newest is first
+                    grid.prepend(card);
+                });
+            } catch(e) {
+                console.error("Error loading reviews:", e);
+            }
+        }
+
+        // Submit Review
+        document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitReviewBtn');
+            const origText = btn.innerText;
+            btn.innerText = 'Submitting...';
+            btn.disabled = true;
+
+            const newReview = {
+                name: document.getElementById('reviewerName').value,
+                city: document.getElementById('reviewerCity').value,
+                rating: document.getElementById('ratingValue').value,
+                reviewText: document.getElementById('reviewText').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newReview)
+                });
+                
+                if(response.ok) {
+                    alert('Thank you for your review!');
+                    location.reload(); 
+                } else {
+                    alert('Error submitting review.');
+                    btn.innerText = origText;
+                    btn.disabled = false;
+                }
+            } catch (e) {
+                alert('Connection error.');
+                btn.innerText = origText;
+                btn.disabled = false;
+            }
+        });
+
+        // Initial Load
+        loadReviews();
+    </script>
+</body>
+</html>
