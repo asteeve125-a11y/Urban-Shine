@@ -847,6 +847,8 @@ footer {
     }
 }
 @media (max-width: 991px) {
+    .navbar { padding: 15px 30px; }
+    .logo img { height: 80px; }
     .nav-links { display: none; }
     .nav-right { flex-direction: row; align-items: center; }
     .contact-number, .btn-book-now { display: none; }
@@ -854,19 +856,39 @@ footer {
     .hero-container { flex-direction: column; text-align: center; }
     .hero-buttons { justify-content: center; }
     .hero-image { display: none; }
-    .hero { padding: 80px 30px 100px; }
+    .hero { padding: 120px 30px 100px; }
+    .hero-content h1 { font-size: 42px; }
     .services-cards { grid-template-columns: 1fr 1fr; }
     .process-steps { flex-direction: column; gap: 30px; }
     .process-steps::before { display: none; }
     .process-step { display: flex; align-items: center; text-align: left; gap: 20px; }
     .step-icon-wrapper { margin: 0; }
     .footer-container { grid-template-columns: 1fr 1fr; }
+    .page-header { padding: 160px 30px 40px; }
 }
 @media (max-width: 768px) {
-    .top-bar { flex-direction: column; text-align: center; gap: 10px; }
+    .navbar { padding: 15px 20px; }
+    .logo img { height: 60px; }
+    .hero { padding: 100px 20px 80px; }
+    .hero-content h1 { font-size: 32px; }
+    .hero-content p { font-size: 14px; margin-bottom: 30px; }
+    .hero-buttons { flex-direction: column; width: 100%; gap: 10px; }
+    .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+    .features-bar { margin: -30px 20px 40px; padding: 20px; gap: 15px; }
     .services-cards { grid-template-columns: 1fr; }
     .pricing-summary { flex-direction: column; }
+    .pricing-header, .pricing-row { padding: 12px 10px; font-size: 12px; }
     .reviews-grid { grid-template-columns: 1fr; }
-    .footer-container { grid-template-columns: 1fr; }
-    .feature-item { flex: 1 1 100%; }
+    .footer-container { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .footer-col .logo { justify-content: center; }
+    .footer-socials { justify-content: center; }
+    .feature-item { flex: 1 1 100%; border-bottom: 1px solid var(--border); padding: 15px 0; }
+    .feature-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .section-title h2 { font-size: 26px; }
+    .services-section, .process-section, .reviews-section, .bottom-blocks { padding-left: 20px; padding-right: 20px; padding-top: 40px; padding-bottom: 40px; }
+    .cta-banner { padding: 30px 20px; text-align: center; align-items: center; }
+    .cta-content h2 { font-size: 24px; }
+    .page-header { padding: 120px 20px 30px; }
+    .page-header h1 { font-size: 28px; }
+    .page-content { padding: 40px 20px; }
 }
