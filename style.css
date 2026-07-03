@@ -857,6 +857,23 @@ footer {
     .navbar { padding: 15px 30px; }
     .logo img { height: 80px; }
     .nav-links { display: none; }
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--dark);
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        z-index: 999;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
     .nav-right { flex-direction: row; align-items: center; }
     .contact-number, .btn-book-now { display: none; }
     .menu-toggle { display: block; }
@@ -877,7 +894,7 @@ footer {
     .stats-grid { grid-template-columns: 1fr; }
     .navbar { padding: 15px 20px; }
     .logo img { height: 60px; }
-    .hero { padding: 100px 20px 80px; }
+    .hero { padding: 100px 20px 120px; }
     .hero-content h1 { font-size: 32px; }
     .hero-content p { font-size: 14px; margin-bottom: 30px; }
     .hero-buttons { flex-direction: column; width: 100%; gap: 10px; }
@@ -899,4 +916,16 @@ footer {
     .page-header { padding: 120px 20px 30px; }
     .page-header h1 { font-size: 28px; }
     .page-content { padding: 40px 20px; }
+}
+
+@media (max-width: 480px) {
+    .pricing-header { display: none; }
+    .pricing-row { flex-direction: column; gap: 8px; text-align: center; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; background: var(--white); }
+    .pricing-row:last-child { border-bottom: 1px solid var(--border); }
+    .pricing-table-card { border: none; box-shadow: none; background: transparent; }
+    .col-name { font-weight: bold; color: var(--dark); font-size: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    .col-one::before { content: "One-time: "; font-weight: normal; color: var(--text-muted); }
+    .col-monthly::before { content: "Monthly: "; font-weight: normal; color: var(--text-muted); }
+    .hero-content h1 { font-size: 28px; }
+    .hero { padding: 100px 15px 120px; }
 }
