@@ -870,10 +870,6 @@ footer {
         z-index: 999;
         animation: fadeInDown 0.3s ease forwards;
     }
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
     .nav-right { flex-direction: row; align-items: center; }
     .contact-number, .btn-book-now { display: none; }
     .menu-toggle { display: block; }
@@ -928,4 +924,9 @@ footer {
     .col-monthly::before { content: "Monthly: "; font-weight: normal; color: var(--text-muted); }
     .hero-content h1 { font-size: 28px; }
     .hero { padding: 100px 15px 120px; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
