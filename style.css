@@ -821,6 +821,12 @@ footer {
     margin: auto;
 }
 
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -847,6 +853,7 @@ footer {
     }
 }
 @media (max-width: 991px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .navbar { padding: 15px 30px; }
     .logo img { height: 80px; }
     .nav-links { display: none; }
@@ -867,6 +874,7 @@ footer {
     .page-header { padding: 160px 30px 40px; }
 }
 @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr; }
     .navbar { padding: 15px 20px; }
     .logo img { height: 60px; }
     .hero { padding: 100px 20px 80px; }
