@@ -700,7 +700,7 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.textContent = "Sending...";
 
         try {
-            const response = await fetch('/api/feedbacks', {
+            const response = await fetch('http://localhost:3000/api/feedbacks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: name, feedbackText: text })
