@@ -7,29 +7,68 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        .pricing-cards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+        .pricing-comparison-table-wrapper {
             max-width: 1200px;
             margin: auto;
-        }
-        @media (max-width: 991px) { .pricing-cards-container { grid-template-columns: 1fr; } }
-        .vehicle-type {
-            text-align: center;
-            padding: 20px;
+            overflow-x: auto;
             background: var(--white);
+            border-radius: 12px;
             border: 1px solid var(--border);
-            border-bottom: none;
-            border-radius: 12px 12px 0 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .pricing-comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        .pricing-comparison-table th, .pricing-comparison-table td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+        .pricing-comparison-table th:last-child, .pricing-comparison-table td:last-child {
+            border-right: none;
+        }
+        .pricing-comparison-table th {
+            background: var(--dark);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .pricing-comparison-table th small {
+            font-weight: normal;
+            opacity: 0.8;
+            font-size: 12px;
+        }
+        .pricing-comparison-table td {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .table-cat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+        }
+        .table-cat img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            max-height: 140px;
+            object-fit: contain;
+        }
+        .table-cat span {
             font-weight: bold;
             color: var(--dark);
-            font-size: 18px;
         }
-        .vehicle-img {
-            height: 120px;
-            object-fit: contain;
-            margin: 10px auto;
+        .pricing-comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .pricing-comparison-table tbody tr:nth-child(even) {
+            background: #f9fbfd;
         }
     </style>
 </head>
@@ -51,6 +90,7 @@
                 <li><a href="monthly-packages.html">Monthly Packages</a></li>
                 <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="about.html">About Us</a></li>
+                <li><a href="partner.html">Partner Program</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
 
@@ -80,164 +120,78 @@
             <div id="carSearchResult" style="margin-top: 15px; font-weight: bold; font-size: 18px; min-height: 27px;"></div>
         </div>
 
-        <div class="pricing-cards-container">
-            
-            <!-- HATCHBACK -->
-            <div>
-                <div class="vehicle-type">
-                    HATCHBACK
-                    <img src="tata_altroz.png" alt="Tata Altroz" class="vehicle-img">
-                </div>
-                <div class="pricing-table-card" style="border-radius: 0 0 12px 12px;">
-                    <div class="pricing-header">
-                        <div class="col-name" style="flex:1.5;">Service</div>
-                        <div class="col-one">One-Time</div>
-                        <div class="col-monthly">Monthly</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Standard Wash</div>
-                        <div class="col-one">₹200</div>
-                        <div class="col-monthly">₹180</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Premium Wash</div>
-                        <div class="col-one">₹300</div>
-                        <div class="col-monthly">₹270</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Deep Cleaning</div>
-                        <div class="col-one">₹600</div>
-                        <div class="col-monthly">₹540</div>
-                    </div>
-                    <a href="contact.html" class="btn-view-all">Book Now</a>
-                </div>
-            </div>
-
-            <!-- SEDAN -->
-            <div>
-                <div class="vehicle-type">
-                    SEDAN
-                    <img src="honda_city.png" alt="Honda City" class="vehicle-img">
-                </div>
-                <div class="pricing-table-card" style="border-radius: 0 0 12px 12px;">
-                    <div class="pricing-header">
-                        <div class="col-name" style="flex:1.5;">Service</div>
-                        <div class="col-one">One-Time</div>
-                        <div class="col-monthly">Monthly</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Standard Wash</div>
-                        <div class="col-one">₹235</div>
-                        <div class="col-monthly">₹212</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Premium Wash</div>
-                        <div class="col-one">₹350</div>
-                        <div class="col-monthly">₹315</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Deep Cleaning</div>
-                        <div class="col-one">₹700</div>
-                        <div class="col-monthly">₹630</div>
-                    </div>
-                    <a href="contact.html" class="btn-view-all">Book Now</a>
-                </div>
-            </div>
-
-            <!-- COMPACT SUV -->
-            <div>
-                <div class="vehicle-type">
-                    COMPACT SUV
-                    <img src="tata_nexon.png" alt="Tata Nexon" class="vehicle-img">
-                </div>
-                <div class="pricing-table-card" style="border-radius: 0 0 12px 12px;">
-                    <div class="pricing-header">
-                        <div class="col-name" style="flex:1.5;">Service</div>
-                        <div class="col-one">One-Time</div>
-                        <div class="col-monthly">Monthly</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Standard Wash</div>
-                        <div class="col-one">₹270</div>
-                        <div class="col-monthly">₹243</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Premium Wash</div>
-                        <div class="col-one">₹400</div>
-                        <div class="col-monthly">₹360</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Deep Cleaning</div>
-                        <div class="col-one">₹800</div>
-                        <div class="col-monthly">₹720</div>
-                    </div>
-                    <a href="contact.html" class="btn-view-all">Book Now</a>
-                </div>
-            </div>
-
-            <!-- SUV 5 SEATER -->
-            <div>
-                <div class="vehicle-type">
-                    SUV 5 SEATER
-                    <img src="mahindra_thar.png" alt="Mahindra Thar" class="vehicle-img">
-                </div>
-                <div class="pricing-table-card" style="border-radius: 0 0 12px 12px;">
-                    <div class="pricing-header">
-                        <div class="col-name" style="flex:1.5;">Service</div>
-                        <div class="col-one">One-Time</div>
-                        <div class="col-monthly">Monthly</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Standard Wash</div>
-                        <div class="col-one">₹300</div>
-                        <div class="col-monthly">₹270</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Premium Wash</div>
-                        <div class="col-one">₹450</div>
-                        <div class="col-monthly">₹405</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Deep Cleaning</div>
-                        <div class="col-one">₹900</div>
-                        <div class="col-monthly">₹810</div>
-                    </div>
-                    <a href="contact.html" class="btn-view-all">Book Now</a>
-                </div>
-            </div>
-
-            <!-- SUV 7 SEATER -->
-            <div>
-                <div class="vehicle-type">
-                    SUV 7 SEATER
-                    <img src="ford_endeavour.png" alt="Ford Endeavour" class="vehicle-img">
-                </div>
-                <div class="pricing-table-card" style="border-radius: 0 0 12px 12px;">
-                    <div class="pricing-header">
-                        <div class="col-name" style="flex:1.5;">Service</div>
-                        <div class="col-one">One-Time</div>
-                        <div class="col-monthly">Monthly</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Standard Wash</div>
-                        <div class="col-one">₹335</div>
-                        <div class="col-monthly">₹302</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Premium Wash</div>
-                        <div class="col-one">₹500</div>
-                        <div class="col-monthly">₹450</div>
-                    </div>
-                    <div class="pricing-row">
-                        <div class="col-name" style="flex:1.5;">Deep Cleaning</div>
-                        <div class="col-one">₹1000</div>
-                        <div class="col-monthly">₹900</div>
-                    </div>
-                    <a href="contact.html" class="btn-view-all">Book Now</a>
-                </div>
-            </div>
-
-        </div></div>
+        <div class="pricing-comparison-table-wrapper">
+            <table class="pricing-comparison-table">
+                <thead>
+                    <tr>
+                        <th>Vehicle Category</th>
+                        <th>Standard Wash<br><small>(One-Time / Monthly)</small></th>
+                        <th>Premium Wash<br><small>(One-Time / Monthly)</small></th>
+                        <th>Deep Cleaning<br><small>(One-Time / Monthly)</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="table-cat">
+                                <img src="tata_altroz.png" alt="Tata Altroz">
+                                <span>Hatchback</span>
+                            </div>
+                        </td>
+                        <td>₹200 / ₹180</td>
+                        <td>₹300 / ₹270</td>
+                        <td>₹600 / ₹540</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-cat">
+                                <img src="honda_city.png" alt="Honda City">
+                                <span>Sedan</span>
+                            </div>
+                        </td>
+                        <td>₹235 / ₹212</td>
+                        <td>₹350 / ₹315</td>
+                        <td>₹700 / ₹630</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-cat">
+                                <img src="tata_nexon.png" alt="Tata Nexon">
+                                <span>Compact SUV</span>
+                            </div>
+                        </td>
+                        <td>₹270 / ₹243</td>
+                        <td>₹400 / ₹360</td>
+                        <td>₹800 / ₹720</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-cat">
+                                <img src="mahindra_thar.png" alt="Mahindra Thar">
+                                <span>SUV 5 Seater</span>
+                            </div>
+                        </td>
+                        <td>₹300 / ₹270</td>
+                        <td>₹450 / ₹405</td>
+                        <td>₹900 / ₹810</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-cat">
+                                <img src="ford_endeavour.png" alt="Ford Endeavour">
+                                <span>SUV 7 Seater</span>
+                            </div>
+                        </td>
+                        <td>₹335 / ₹302</td>
+                        <td>₹500 / ₹450</td>
+                        <td>₹1000 / ₹900</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="contact.html" class="btn-book-now" style="font-size: 18px; padding: 12px 40px; display: inline-block;">Book Your Wash Now</a>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -268,7 +222,8 @@
             <div class="footer-col">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="partner.html">Partner Program</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
                 </ul>

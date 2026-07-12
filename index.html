@@ -25,6 +25,7 @@
                 <li><a href="monthly-packages.html">Monthly Packages</a></li>
                 <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="about.html">About Us</a></li>
+                <li><a href="partner.html">Partner Program</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
 
@@ -38,8 +39,23 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Hero Section Desktop -->
+    <section class="hero hero-desktop">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge-exact">PROFESSIONAL CAR WASH</div>
+                <h1>Urban Shine,<br>Professional Car Wash<br><span>at Your Doorstep</span></h1>
+                <p>We bring premium car care to your society.<br>Convenient. Affordable. Reliable.</p>
+                <div class="hero-buttons">
+                    <a href="contact.html" class="btn-primary"><i class="far fa-calendar-check"></i> Book a Wash</a>
+                    <a href="contact.html" class="btn-outline"><i class="far fa-comment-dots"></i> Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section Mobile -->
+    <section class="hero hero-mobile">
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-badge-exact">PROFESSIONAL CAR WASH</div>
@@ -96,9 +112,9 @@
                         <div class="service-icon-badge"><i class="fas fa-car-side"></i></div>
                     </div>
                     <div class="service-content">
-                        <h3>Basic Wash</h3>
-                        <p>Exterior wash, Shampoo, Tyre & Rim Cleaning</p>
-                        <a href="contact.html" class="btn-service">Book Now</a>
+                        <h3>Standard Wash</h3>
+                        <p>Exterior Foam Wash, Drying with Microfiber Towel</p>
+                        <a href="contact.html"class="btn-service">Book Now</a>
                     </div>
                 </div>
                 <!-- Card 2 -->
@@ -108,8 +124,8 @@
                         <div class="service-icon-badge"><i class="fas fa-spray-can"></i></div>
                     </div>
                     <div class="service-content">
-                        <h3>Standard Wash</h3>
-                        <p>Exterior + Interior Vacuum, Dashboard Cleaning</p>
+                        <h3>Premium Wash</h3>
+                        <p>Exterior Foam wash, Interior Vacuum, Dashboard Cleaning, Floor Mat Cleaning, Drying with Microfiber Towel</p>
                         <a href="contact.html" class="btn-service">Book Now</a>
                     </div>
                 </div>
@@ -120,8 +136,8 @@
                         <div class="service-icon-badge"><i class="fas fa-gem"></i></div>
                     </div>
                     <div class="service-content">
-                        <h3>Premium Wash</h3>
-                        <p>Exterior + Interior Deep Clean, Polish, Wax</p>
+                        <h3>Deep Cleaning</h3>
+                        <p>Exterior Foam wash, Interior Vacuum, Seats & Celling Cleaning, Door Cleaning, Trunk Cleaning, Dashboard Polish, Dashboard Cleaning, Floor Mat Cleaning, Drying with Microfiber Towel</p>
                         <a href="contact.html" class="btn-service">Book Now</a>
                     </div>
                 </div>
@@ -141,40 +157,50 @@
                         <div class="step-number">1</div>
                         <i class="far fa-calendar-check"></i>
                     </div>
-                    <h4>Book Online</h4>
-                    <p>Choose your preferred service & time</p>
+                    <div class="step-text">
+                        <h4>Book Online</h4>
+                        <p>Choose your preferred service & time</p>
+                    </div>
                 </div>
                 <div class="process-step">
                     <div class="step-icon-wrapper">
                         <div class="step-number">2</div>
                         <i class="far fa-clock"></i>
                     </div>
-                    <h4>We Arrive</h4>
-                    <p>Our team reaches your location on time</p>
+                    <div class="step-text">
+                        <h4>We Arrive</h4>
+                        <p>Our team reaches your location on time</p>
+                    </div>
                 </div>
                 <div class="process-step">
                     <div class="step-icon-wrapper">
                         <div class="step-number">3</div>
                         <i class="fas fa-soap"></i>
                     </div>
-                    <h4>We Clean</h4>
-                    <p>Professional wash with premium products</p>
+                    <div class="step-text">
+                        <h4>We Clean</h4>
+                        <p>Professional wash with premium products</p>
+                    </div>
                 </div>
                 <div class="process-step">
                     <div class="step-icon-wrapper">
                         <div class="step-number">4</div>
                         <i class="far fa-thumbs-up"></i>
                     </div>
-                    <h4>You Relax</h4>
-                    <p>Enjoy your sparkling clean car</p>
+                    <div class="step-text">
+                        <h4>You Relax</h4>
+                        <p>Enjoy your sparkling clean car</p>
+                    </div>
                 </div>
                 <div class="process-step">
                     <div class="step-icon-wrapper">
                         <div class="step-number">5</div>
                         <i class="far fa-star"></i>
                     </div>
-                    <h4>Leave Review</h4>
-                    <p>Your feedback drives us better</p>
+                    <div class="step-text">
+                        <h4>Leave Review</h4>
+                        <p>Your feedback drives us better</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,6 +259,41 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section class="gallery-section" style="padding: 60px 50px; background: var(--secondary); text-align: center;">
+        <div class="section-title">
+            <h2>Our Work Gallery</h2>
+        </div>
+        <div class="gallery-grid" id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto 30px;">
+            <!-- Visible photos -->
+            <img src="1.jpg.jpeg" alt="Car Wash Result" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="Int.jpeg" alt="Interior Cleaning" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="SUV.jpeg" alt="SUV Wash" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="Sedan.jpeg" alt="Sedan Wash" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            
+            <!-- Hidden photos -->
+            <img src="FWash.png" class="hidden-gallery" alt="Foam Wash" style="display: none; width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="P&W.png" class="hidden-gallery" alt="Polish and Wash" style="display: none; width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="sc.png" class="hidden-gallery" alt="Shine Coating" style="display: none; width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="Intcleaning.png" class="hidden-gallery" alt="Deep Interior Cleaning" style="display: none; width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        </div>
+        <button id="showMoreGalleryBtn" class="btn-primary" style="margin: auto;" onclick="toggleGallery()">Show More Photos</button>
+    </section>
+
+    <script>
+        function toggleGallery() {
+            const hiddenPhotos = document.querySelectorAll('.hidden-gallery');
+            const btn = document.getElementById('showMoreGalleryBtn');
+            let isShowing = btn.innerText === 'Show Less Photos';
+            
+            hiddenPhotos.forEach(photo => {
+                photo.style.display = isShowing ? 'none' : 'block';
+            });
+            
+            btn.innerText = isShowing ? 'Show More Photos' : 'Show Less Photos';
+        }
+    </script>
+
     <!-- Bottom Blocks -->
     <section class="bottom-blocks">
         <div class="cta-banner">
@@ -246,7 +307,7 @@
             <h3>Need Help or Have an Enquiry?</h3>
             <div class="help-info">
                 <div class="help-item"><i class="fas fa-phone-alt"></i> +91 7567254083</div>
-                <div class="help-item"><i class="far fa-envelope"></i> info@urbanshine.in</div>
+                <div class="help-item"><i class="far fa-envelope"></i> urban.shine.gandhinagar@gmail.com</div>
                 <div class="help-item"><i class="fas fa-map-marker-alt"></i> Gandhinagar, Gujarat</div>
                 <div class="help-item"><i class="far fa-clock"></i> Mon - Sun: 7:00 AM - 9:00 PM</div>
             </div>
@@ -291,7 +352,8 @@
             <div class="footer-col">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="partner.html">Partner Program</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
                 </ul>

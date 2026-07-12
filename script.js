@@ -1,4 +1,13 @@
 // ===============================
+// REFERRAL TRACKING
+// ===============================
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('ref') && urlParams.has('partner')) {
+    sessionStorage.setItem('referral_partner', urlParams.get('partner'));
+    sessionStorage.setItem('referral_code', urlParams.get('ref'));
+}
+
+// ===============================
 // MOBILE MENU TOGGLE
 // ===============================
 const menuToggle = document.querySelector('.menu-toggle');
@@ -25,7 +34,55 @@ window.addEventListener('resize', () => {
 // CONTACT FORM VALIDATION & WHATSAPP
 // ===============================
 const bookingForm = document.getElementById("bookingForm");
+
+// Pricing Logic
+const pricingMatrix = {
+    "Hatchback": {
+        "Standard Wash": { "One Time": 200, "Monthly Package": 180 },
+        "Premium Wash": { "One Time": 300, "Monthly Package": 270 },
+        "Deep Cleaning": { "One Time": 600, "Monthly Package": 540 }
+    },
+    "Sedan": {
+        "Standard Wash": { "One Time": 235, "Monthly Package": 212 },
+        "Premium Wash": { "One Time": 350, "Monthly Package": 315 },
+        "Deep Cleaning": { "One Time": 700, "Monthly Package": 630 }
+    },
+    "Compact SUV": {
+        "Standard Wash": { "One Time": 270, "Monthly Package": 243 },
+        "Premium Wash": { "One Time": 400, "Monthly Package": 360 },
+        "Deep Cleaning": { "One Time": 800, "Monthly Package": 720 }
+    },
+    "SUV 5 Seater": {
+        "Standard Wash": { "One Time": 300, "Monthly Package": 270 },
+        "Premium Wash": { "One Time": 450, "Monthly Package": 405 },
+        "Deep Cleaning": { "One Time": 900, "Monthly Package": 810 }
+    },
+    "SUV 7 Seater": {
+        "Standard Wash": { "One Time": 335, "Monthly Package": 302 },
+        "Premium Wash": { "One Time": 500, "Monthly Package": 450 },
+        "Deep Cleaning": { "One Time": 1000, "Monthly Package": 900 }
+    }
+};
+
+function updateGrandTotal() {
+    const carTypeEl = document.querySelector('input[name="carType"]:checked');
+    const packageTypeEl = document.querySelector('input[name="packageType"]:checked');
+    const washTypeEl = document.querySelector('input[name="washType"]:checked');
+    const totalAmountSpan = document.getElementById("totalAmount");
+    
+    if (carTypeEl && packageTypeEl && washTypeEl && totalAmountSpan) {
+        const price = pricingMatrix[carTypeEl.value][washTypeEl.value][packageTypeEl.value];
+        totalAmountSpan.innerText = price;
+    }
+}
+
 if (bookingForm) {
+    const radioInputs = bookingForm.querySelectorAll('input[type="radio"]');
+    radioInputs.forEach(input => {
+        input.addEventListener('change', updateGrandTotal);
+    });
+
+
     bookingForm.addEventListener("submit", async function(e){
         e.preventDefault();
 
@@ -36,14 +93,22 @@ if (bookingForm) {
         submitBtn.disabled = true;
 
         const name = document.getElementById("name").value;
+        const mobile = document.getElementById("mobile").value;
         const area = document.getElementById("area").value;
         const house = document.getElementById("house").value;
         const car = document.getElementById("car").value;
+        const carType = document.querySelector('input[name="carType"]:checked').value;
         const date = document.getElementById("date").value;
         const packageType = document.querySelector('input[name="packageType"]:checked').value;
         const washType = document.querySelector('input[name="washType"]:checked').value;
+        const grandTotal = document.getElementById("totalAmount").innerText;
         
-        const bookingData = { name, area, house, car, date, packageType, washType };
+        let referredBy = null;
+        if (sessionStorage.getItem('referral_partner')) {
+            referredBy = `${sessionStorage.getItem('referral_partner')} (${sessionStorage.getItem('referral_code')})`;
+        }
+        
+        const bookingData = { name, mobile, area, house, car, carType, date, packageType, washType, grandTotal, referredBy };
 
         try {
             // Send data to backend database
@@ -64,16 +129,20 @@ if (bookingForm) {
 I would like to book a Car Wash.
 
 👤 Name: ${name}
+📞 Mobile: ${mobile}
 📍 Area: ${area}
 🏠 Building & House: ${house}
 🚗 Car Model: ${car}
+🚙 Car Type: ${carType}
 🗓️ Preferred Date: ${date}
 📦 Type of Package: ${packageType}
 ✨ Type of Wash: ${washType}
 
+💵 Grand Total: ₹${grandTotal}
+${referredBy ? '\n🤝 Referred By: ' + referredBy + '\n' : ''}
 Thank You.`;
 
-            const whatsappURL = `https://wa.me/919033155566?text=${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/917567254083?text=${encodeURIComponent(message)}`;
             window.open(whatsappURL, "_blank");
         } else {
             alert("Thank you! Your booking has been received successfully.");
@@ -278,6 +347,35 @@ if (contactCarInput && liveCategoryResult) {
             liveCategoryResult.innerHTML = `Auto-Detected Category: <span style="color: var(--primary);">${foundCategory}</span>`;
         } else {
             liveCategoryResult.innerHTML = `<span style="color: #e74c3c; font-weight: normal; font-size: 13px;">Keep typing car model...</span>`;
+        }
+    });
+}
+
+// ===============================
+// SECRET ADMIN PANEL TRIGGER
+// ===============================
+const logoLink = document.querySelector('.logo a');
+if (logoLink) {
+    let clickCount = 0;
+    let clickTimer = null;
+
+    logoLink.addEventListener('click', function(e) {
+        e.preventDefault(); 
+        
+        clickCount++;
+        
+        if (clickCount === 3) {
+            window.location.href = 'admin.html';
+            clickCount = 0;
+            clearTimeout(clickTimer);
+        } else {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                if (clickCount > 0 && clickCount < 3) {
+                    window.location.href = logoLink.getAttribute('href');
+                }
+                clickCount = 0;
+            }, 800); 
         }
     });
 }

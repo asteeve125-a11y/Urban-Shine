@@ -107,6 +107,7 @@
                 <li><a href="monthly-packages.html">Monthly Packages</a></li>
                 <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="about.html">About Us</a></li>
+                <li><a href="partner.html">Partner Program</a></li>
                 <li><a href="contact.html" class="active">Contact Us</a></li>
             </ul>
 
@@ -148,7 +149,7 @@
                     <div class="contact-icon"><i class="far fa-envelope"></i></div>
                     <div class="contact-text">
                         <h4>Email Us</h4>
-                        <p>info@urbanshine.in</p>
+                        <p>urban.shine.gandhinagar@gmail.com</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -168,6 +169,10 @@
                         <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
                     </div>
                     <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="mobile" class="form-control" placeholder="Enter your 10-digit mobile number" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
                         <label>Area / Location</label>
                         <input type="text" id="area" class="form-control" placeholder="e.g. Vastrapur, Satellite" required>
                     </div>
@@ -179,6 +184,16 @@
                         <label>Car Model</label>
                         <input type="text" id="car" class="form-control" placeholder="e.g. Hyundai i20, Kia Seltos" required>
                         <div id="liveCategoryResult" style="margin-top: 5px; font-weight: bold; font-size: 14px; min-height: 20px; transition: 0.3s;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:10px;">Select Car Type</label>
+                        <div class="radio-group" style="display: flex; flex-direction: column; gap: 10px;">
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="carType" value="Hatchback" checked style="margin-right: 8px;" required>Hatchback</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="carType" value="Sedan" style="margin-right: 8px;">Sedan</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="carType" value="Compact SUV" style="margin-right: 8px;">Compact SUV</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="carType" value="SUV 5 Seater" style="margin-right: 8px;">SUV 5 Seater</label>
+                            <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="carType" value="SUV 7 Seater" style="margin-right: 8px;">SUV 7 Seater</label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Preferred Date</label>
@@ -197,6 +212,11 @@
                             <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="washType" value="Standard Wash" checked style="margin-right: 8px;">Standard Wash</label>
                             <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="washType" value="Premium Wash" style="margin-right: 8px;">Premium Wash</label>
                             <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="washType" value="Deep Cleaning" style="margin-right: 8px;">Deep Cleaning</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="grandTotalDisplay" style="font-size: 20px; font-weight: bold; color: var(--primary); text-align: center; padding: 15px; background: var(--secondary); border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border);">
+                            Grand Total: ₹<span id="totalAmount">200</span>
                         </div>
                     </div>
                     <button type="submit" id="submitBtnWhatsApp" class="btn-submit" name="submitType" value="whatsapp">
@@ -239,7 +259,8 @@
             <div class="footer-col">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="partner.html">Partner Program</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
                 </ul>

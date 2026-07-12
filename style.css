@@ -76,6 +76,7 @@ header {
     gap: 30px;
     flex: 1;
     justify-content: center;
+    align-items: center;
 }
 
 .nav-right {
@@ -140,6 +141,10 @@ header {
 /* =========================
    HERO SECTION
 ========================= */
+.hero-mobile {
+    display: none !important;
+}
+
 .hero {
     background: url('hero_bg_exact.png') no-repeat center right;
     background-size: cover;
@@ -209,6 +214,7 @@ header {
 .hero-buttons {
     display: flex;
     gap: 15px;
+    align-items: center;
 }
 
 .btn-primary, .btn-outline {
@@ -398,6 +404,7 @@ header {
     border-radius: 6px;
     font-weight: 500;
     transition: 0.3s;
+    margin-top: auto;
 }
 .btn-service:hover {
     background: var(--primary-hover);
@@ -421,6 +428,7 @@ header {
     color: var(--white);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 15px 20px;
     font-size: 14px;
     font-weight: 600;
@@ -428,6 +436,7 @@ header {
 .pricing-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 15px 20px;
     border-bottom: 1px solid var(--border);
     font-size: 14px;
@@ -877,12 +886,17 @@ footer {
     .hero-buttons { justify-content: center; }
     .hero-image { display: none; }
     .hero { padding: 120px 30px 100px; }
+    .hero-desktop { display: none !important; }
+    .hero-mobile { display: flex !important; background: url('hero_car_splash.png') no-repeat center center; background-size: cover; }
+    .hero-mobile::before { background: linear-gradient(to bottom, rgba(0, 18, 51, 0.9) 0%, rgba(0, 18, 51, 0.7) 100%); }
     .hero-content h1 { font-size: 42px; }
     .services-cards { grid-template-columns: 1fr 1fr; }
     .process-steps { flex-direction: column; gap: 30px; }
     .process-steps::before { display: none; }
     .process-step { display: flex; align-items: center; text-align: left; gap: 20px; }
-    .step-icon-wrapper { margin: 0; }
+    .step-icon-wrapper { margin: 0; flex-shrink: 0; }
+    .step-text { display: flex; flex-direction: column; justify-content: center; margin: 0; padding: 0; }
+    .step-text h4 { margin-bottom: 2px; }
     .footer-container { grid-template-columns: 1fr 1fr; }
     .page-header { padding: 160px 30px 40px; }
 }

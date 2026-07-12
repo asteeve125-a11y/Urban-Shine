@@ -10,7 +10,8 @@
         body { padding: 40px; background: #f4f7f6; }
         .dashboard-container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
         h1 { margin-bottom: 20px; color: var(--dark); }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table-responsive { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; white-space: nowrap; }
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background: var(--primary); color: white; }
         tr:hover { background: #f1f1f1; }
@@ -19,61 +20,127 @@
         .badge-wash { background: #e8eaf6; color: #283593; }
         .refresh-btn { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 20px; }
         .home-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: bold; }
+        .login-container { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
+        .login-container input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .login-container button { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: transform 0.1s ease, opacity 0.1s ease; }
+        .login-container button:active { transform: scale(0.96); opacity: 0.9; }
+        .error-msg { color: red; font-size: 14px; margin-top: 10px; display: none; }
+        .logout-btn { float: right; padding: 8px 15px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+    <div id="loginSection" class="login-container">
+        <h2>Admin Login</h2>
+        <input type="email" id="adminEmail" placeholder="Email Address" required>
+        <input type="password" id="adminPass" placeholder="Password" required>
+        <button onclick="loginAdmin()">Login</button>
+        <div id="loginError" class="error-msg">Invalid credentials!</div>
+    </div>
+
+    <div id="dashboardSection" class="dashboard-container" style="display: none;">
+        <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         <a href="index.html" class="home-link"><i class="fas fa-arrow-left"></i> Back to Website</a>
         <h1>🚗 Urban Shine Bookings Dashboard</h1>
         <button class="refresh-btn" onclick="fetchBookings()"><i class="fas fa-sync-alt"></i> Refresh Data</button>
         
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Date Received</th>
-                    <th>Customer Name</th>
-                    <th>Location</th>
-                    <th>Car Model</th>
-                    <th>Preferred Date</th>
-                    <th>Package Type</th>
-                    <th>Wash Type</th>
-                </tr>
-            </thead>
-            <tbody id="bookingsTableBody">
-                <tr><td colspan="8" style="text-align:center;">Loading bookings...</td></tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date Received</th>
+                        <th>Customer Name</th>
+                        <th>Mobile</th>
+                        <th>Location</th>
+                        <th>Car Model</th>
+                        <th>Preferred Date</th>
+                        <th>Package Type</th>
+                        <th>Wash Type</th>
+                        <th>Referred By</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingsTableBody">
+                    <tr><td colspan="10" style="text-align:center;">Loading bookings...</td></tr>
+                </tbody>
+            </table>
+        </div>
         
         <h1 style="margin-top: 50px;">⭐ Customer Reviews</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Date Received</th>
-                    <th>Customer Name</th>
-                    <th>Location</th>
-                    <th>Rating</th>
-                    <th>Review</th>
-                </tr>
-            </thead>
-            <tbody id="reviewsTableBody">
-                <tr><td colspan="6" style="text-align:center;">Loading reviews...</td></tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date Received</th>
+                        <th>Customer Name</th>
+                        <th>Location</th>
+                        <th>Rating</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody id="reviewsTableBody">
+                    <tr><td colspan="6" style="text-align:center;">Loading reviews...</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        async function fetchBookings() {
-            const tbody = document.getElementById('bookingsTableBody');
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading bookings...</td></tr>';
+        const token = localStorage.getItem('adminToken');
+        if (token) showDashboard();
+
+        async function loginAdmin() {
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPass').value;
             
             try {
-                const response = await fetch('http://localhost:3000/api/bookings');
+                const res = await fetch('http://localhost:3000/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('loginError').style.display = 'none';
+                    localStorage.setItem('adminToken', data.token);
+                    showDashboard();
+                } else {
+                    document.getElementById('loginError').innerText = 'Invalid credentials. Please try again.';
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loginError').innerText = 'Could not connect to server. Is it running?';
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+        
+        function showDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            fetchBookings();
+            fetchReviews();
+        }
+        
+        function logoutAdmin() {
+            localStorage.removeItem('adminToken');
+            document.getElementById('dashboardSection').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'block';
+        }
+
+        async function fetchBookings() {
+            const tbody = document.getElementById('bookingsTableBody');
+            tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">Loading bookings...</td></tr>';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/bookings', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+                });
                 const bookings = await response.json();
                 
                 if (bookings.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No bookings found.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">No bookings found.</td></tr>';
                     return;
                 }
                 
@@ -90,17 +157,19 @@
                         <td>#${b.id}</td>
                         <td>${receivedDate}</td>
                         <td><strong>${b.name}</strong></td>
+                        <td>${b.mobile || 'N/A'}</td>
                         <td>${b.house}, ${b.area}</td>
                         <td>${b.car}</td>
                         <td style="color:var(--primary); font-weight:bold;">${b.date}</td>
                         <td><span class="badge badge-package">${b.packageType}</span></td>
                         <td><span class="badge badge-wash">${b.washType}</span></td>
+                        <td>${b.referredBy ? `<span style="background:#ffd700; color:#333; font-weight:bold; padding:4px 8px; border-radius:4px; font-size:12px;">${b.referredBy}</span>` : '-'}</td>
                     `;
                     tbody.appendChild(tr);
                 });
             } catch (error) {
                 console.error("Error fetching bookings:", error);
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:red;">Error loading bookings. Make sure the server is running.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:red;">Error loading bookings. Make sure the server is running.</td></tr>';
             }
         }
         
@@ -109,7 +178,9 @@
             tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading reviews...</td></tr>';
             
             try {
-                const response = await fetch('http://localhost:3000/api/reviews');
+                const response = await fetch('http://localhost:3000/api/reviews', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+                });
                 const reviews = await response.json();
                 
                 if (reviews.length === 0) {
@@ -136,7 +207,12 @@
                         <td><strong>${r.name}</strong></td>
                         <td>${r.city}</td>
                         <td>${starsHtml}</td>
-                        <td><em>"${r.reviewText}"</em></td>
+                        <td>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <em>"${r.reviewText || ''}"</em>
+                                <i class="fas fa-edit" style="cursor:pointer; color:var(--primary); margin-left:10px;" onclick="editReview(${r.id}, \`${(r.reviewText || '').replace(/`/g, '')}\`)" title="Edit Review"></i>
+                            </div>
+                        </td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -146,9 +222,30 @@
             }
         }
         
-        // Fetch on load
-        fetchBookings();
-        fetchReviews();
+        
+        async function editReview(id, currentText) {
+            const newText = prompt("Edit Review:", currentText);
+            if (newText !== null && newText !== currentText) {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/reviews/${id}`, {
+                        method: 'PUT',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                        },
+                        body: JSON.stringify({ reviewText: newText })
+                    });
+                    if (response.ok) {
+                        fetchReviews();
+                    } else {
+                        alert("Failed to update review.");
+                    }
+                } catch (error) {
+                    console.error("Error updating review:", error);
+                    alert("Connection error.");
+                }
+            }
+        }
     </script>
 </body>
 </html>

@@ -25,6 +25,7 @@
                 <li><a href="monthly-packages.html">Monthly Packages</a></li>
                 <li><a href="reviews.html" class="active">Reviews</a></li>
                 <li><a href="about.html">About Us</a></li>
+                <li><a href="partner.html">Partner Program</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
 
@@ -167,7 +168,8 @@
             <div class="footer-col">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="partner.html">Partner Program</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
                 </ul>
@@ -222,9 +224,13 @@
         // Fetch and render reviews
         async function loadReviews() {
             try {
-                const response = await fetch('http://localhost:3000/api/reviews');
+                const response = await fetch('http://localhost:3000/api/public-reviews');
                 const reviews = await response.json();
                 const grid = document.getElementById('reviewsGrid');
+                
+                if(reviews && reviews.length > 0) {
+                    grid.innerHTML = ''; // Clear hardcoded examples
+                }
                 
                 reviews.forEach(review => {
                     const card = document.createElement('div');
@@ -248,8 +254,8 @@
                             </div>
                         </div>
                     `;
-                    // Prepend so newest is first
-                    grid.prepend(card);
+                    // Append to grid
+                    grid.appendChild(card);
                 });
             } catch(e) {
                 console.error("Error loading reviews:", e);
