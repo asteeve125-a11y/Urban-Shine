@@ -620,13 +620,209 @@ if (logoLink) {
     });
 }
 
+    "x4": "SUV 5 SEATER",
+    "x5": "SUV 5 SEATER",
+    "glc": "SUV 5 SEATER",
+    "gle": "SUV 5 SEATER",
+    "q5": "SUV 5 SEATER",
+    "q7": "SUV 5 SEATER",
+    "q8": "SUV 5 SEATER",
+    "xc60": "SUV 5 SEATER",
+    "xc90": "SUV 5 SEATER",
+    "macan": "SUV 5 SEATER",
+    "cayenne": "SUV 5 SEATER",
+    "range rover evoque": "SUV 5 SEATER",
+    "velar": "SUV 5 SEATER",
+    "discovery sport": "SUV 5 SEATER",
+    "defender 90": "SUV 5 SEATER",
+    "compass": "SUV 5 SEATER",
+    "wrangler": "SUV 5 SEATER",
+    "nx": "SUV 5 SEATER",
+    "rx": "SUV 5 SEATER",
+    "creta": "SUV 5 SEATER",
+    "seltos": "SUV 5 SEATER",
+    "tucson": "SUV 5 SEATER",
+    "sportage": "SUV 5 SEATER",
+    "harrier": "SUV 5 SEATER",
+    "hector": "SUV 5 SEATER",
+    "kicks": "SUV 5 SEATER",
+    "terrano": "SUV 5 SEATER",
+    "s-cross": "SUV 5 SEATER",
+    "captur": "SUV 5 SEATER",
+    "c5 aircross": "SUV 5 SEATER",
+    "x7": "SUV 7 SEATER",
+    "gls": "SUV 7 SEATER",
+    "maybach gls": "SUV 7 SEATER",
+    "range rover": "SUV 7 SEATER",
+    "range rover sport": "SUV 7 SEATER",
+    "defender 110": "SUV 7 SEATER",
+    "defender 130": "SUV 7 SEATER",
+    "discovery": "SUV 7 SEATER",
+    "lx": "SUV 7 SEATER",
+    "grand cherokee": "SUV 7 SEATER",
+    "fortuner": "SUV 7 SEATER",
+    "innova": "SUV 7 SEATER",
+    "innova crysta": "SUV 7 SEATER",
+    "innova hycross": "SUV 7 SEATER",
+    "land cruiser": "SUV 7 SEATER",
+    "vellfire": "SUV 7 SEATER",
+    "rumion": "SUV 7 SEATER",
+    "safari": "SUV 7 SEATER",
+    "hexa": "SUV 7 SEATER",
+    "aria": "SUV 7 SEATER",
+    "xuv3XO": "Compact SUV",
+    "xuv300": "Compact SUV",
+    "xuv500": "SUV 7 SEATER",
+    "xuv700": "SUV 7 SEATER",
+    "scorpio": "SUV 7 SEATER",
+    "Xylo": "SUV 7 SEATER",
+    "scorpio-n": "SUV 7 SEATER",
+    "scorpio classic": "SUV 7 SEATER",
+    "bolero": "SUV 7 SEATER",
+    "bolero neo": "SUV 7 SEATER",
+    "marazzo": "SUV 7 SEATER",
+    "alturas g4": "SUV 7 SEATER",
+    "ertiga": "SUV 7 SEATER",
+    "xl6": "SUV 7 SEATER",
+    "invicto": "SUV 7 SEATER",
+    "carens": "SUV 7 SEATER",
+    "carnival": "SUV 7 SEATER",
+    "alcazar": "SUV 7 SEATER",
+    "endeavour": "SUV 7 SEATER",
+    "everest": "SUV 7 SEATER",
+    "hector": "SUV 5 SEATER",
+    "hector plus": "SUV 7 SEATER",
+    "gloster": "SUV 7 SEATER",
+    "kodiaq": "SUV 7 SEATER",
+    "tiguan allspace": "SUV 7 SEATER",
+    "mu-x": "SUV 7 SEATER",
+    "v-cross": "SUV 7 SEATER",
+    "triber": "SUV 7 SEATER",
+    "lodgy": "SUV 7 SEATER",
+    "pajero": "SUV 7 SEATER",
+    "pajero sport": "SUV 7 SEATER",
+    "outlander": "SUV 7 SEATER",
+    "trailblazer": "SUV 7 SEATER",
+    "captiva": "SUV 7 SEATER",
+    "enjoy": "SUV 7 SEATER",
+    "tavera": "SUV 7 SEATER"
+};
+
+function findCarCategory() {
+    const inputField = document.getElementById("carSearchInput");
+    const resultDiv = document.getElementById("carSearchResult");
+    
+    if (!inputField || !resultDiv) return;
+    
+    const inputRaw = inputField.value.toLowerCase().trim();
+    if (!inputRaw) {
+        resultDiv.textContent = "";
+        return;
+    }
+    const inputClean = inputRaw.replace(/\s+/g, '');
+
+    let foundCategory = null;
+    
+    // Sort keys by length descending to match longer specific names first (e.g. "swift dzire" before "swift")
+    const sortedModels = Object.keys(carDatabase).sort((a, b) => b.length - a.length);
+    
+    for (const model of sortedModels) {
+        const cleanModel = model.replace(/\s+/g, '');
+        if (inputClean.includes(cleanModel)) {
+            foundCategory = carDatabase[model];
+            break;
+        }
+    }
+
+    if (foundCategory) {
+        resultDiv.innerHTML = `Category: <span style="color: var(--primary);">${foundCategory}</span>`;
+    } else {
+        resultDiv.innerHTML = `<span style="color: #e74c3c;">Model not recognized. Please select based on size.</span>`;
+    }
+}
+
+// Add Enter key listener for the search input
+const carSearchInput = document.getElementById("carSearchInput");
+if (carSearchInput) {
+    carSearchInput.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            findCarCategory();
+        }
+    });
+}
+
+// ===============================
+// LIVE CATEGORY DETECTION ON CONTACT FORM
+// ===============================
+const contactCarInput = document.getElementById("car");
+const liveCategoryResult = document.getElementById("liveCategoryResult");
+
+if (contactCarInput && liveCategoryResult) {
+    contactCarInput.addEventListener("input", function() {
+        const inputRaw = this.value.toLowerCase().trim();
+        if (!inputRaw) {
+            liveCategoryResult.textContent = "";
+            return;
+        }
+        
+        const inputClean = inputRaw.replace(/\s+/g, '');
+        let foundCategory = null;
+        
+        const sortedModels = Object.keys(carDatabase).sort((a, b) => b.length - a.length);
+        for (const model of sortedModels) {
+            const cleanModel = model.replace(/\s+/g, '');
+            if (inputClean.includes(cleanModel)) {
+                foundCategory = carDatabase[model];
+                break;
+            }
+        }
+        
+        if (foundCategory) {
+            liveCategoryResult.innerHTML = `Auto-Detected Category: <span style="color: var(--primary);">${foundCategory}</span>`;
+        } else {
+            liveCategoryResult.innerHTML = `<span style="color: #e74c3c; font-weight: normal; font-size: 13px;">Keep typing car model...</span>`;
+        }
+    });
+}
+
+// ===============================
+// SECRET ADMIN PANEL TRIGGER
+// ===============================
+const logoLink = document.querySelector('.logo a');
+if (logoLink) {
+    let clickCount = 0;
+    let clickTimer = null;
+
+    logoLink.addEventListener('click', function(e) {
+        e.preventDefault(); 
+        
+        clickCount++;
+        
+        if (clickCount === 3) {
+            window.location.href = 'admin.html';
+            clickCount = 0;
+            clearTimeout(clickTimer);
+        } else {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                if (clickCount > 0 && clickCount < 3) {
+                    window.location.href = logoLink.getAttribute('href');
+                }
+                clickCount = 0;
+            }, 800); 
+        }
+    });
+}
+
 // ===============================
 // FLOATING SLIDERS INJECTION
 // ===============================
 document.addEventListener("DOMContentLoaded", function() {
     // 1. Left Slider (Feedback)
     const leftSlider = document.createElement("a");
-    leftSlider.href = "reviews.html";
+    leftSlider.href = "javascript:void(0)";
+    leftSlider.id = "feedback-slider-btn";
     leftSlider.className = "floating-slider-left";
     leftSlider.innerHTML = `
         <div class="slider-icon"><i class="fas fa-comment-dots"></i></div>
@@ -649,4 +845,78 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.body.appendChild(leftSlider);
     document.body.appendChild(rightSlider);
+
+    // Feedback Modal Injection
+    const feedbackModalHtml = `
+    <div id="feedbackModal" class="feedback-modal-overlay">
+        <div class="feedback-modal-content">
+            <span class="feedback-close-btn">&times;</span>
+            <h2>Send Us Your Feedback</h2>
+            <form id="feedbackForm">
+                <input type="text" id="feedbackName" placeholder="Your Name" required>
+                <textarea id="feedbackText" placeholder="Your Feedback" rows="4" required></textarea>
+                <button type="submit" class="feedback-submit-btn">Send Feedback</button>
+            </form>
+            <div id="feedbackMessage" style="display: none; margin-top: 10px;"></div>
+        </div>
+    </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', feedbackModalHtml);
+
+    const feedbackModal = document.getElementById("feedbackModal");
+    const feedbackBtn = document.getElementById("feedback-slider-btn");
+    const feedbackCloseBtn = document.querySelector(".feedback-close-btn");
+    const feedbackForm = document.getElementById("feedbackForm");
+    const feedbackMessage = document.getElementById("feedbackMessage");
+
+    feedbackBtn.addEventListener("click", () => {
+        feedbackModal.style.display = "flex";
+        feedbackMessage.style.display = "none";
+        feedbackForm.reset();
+    });
+
+    feedbackCloseBtn.addEventListener("click", () => {
+        feedbackModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === feedbackModal) {
+            feedbackModal.style.display = "none";
+        }
+    });
+
+    feedbackForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("feedbackName").value;
+        const text = document.getElementById("feedbackText").value;
+        const btn = document.querySelector(".feedback-submit-btn");
+        
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+
+        try {
+            const response = await fetch('/api/feedbacks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, feedbackText: text })
+            });
+            const result = await response.json();
+            if (response.ok) {
+                feedbackMessage.style.display = "block";
+                feedbackMessage.style.color = "green";
+                feedbackMessage.textContent = "Feedback sent successfully!";
+                setTimeout(() => { feedbackModal.style.display = "none"; }, 2000);
+            } else {
+                feedbackMessage.style.display = "block";
+                feedbackMessage.style.color = "red";
+                feedbackMessage.textContent = result.error || "Failed to send feedback.";
+            }
+        } catch (error) {
+            feedbackMessage.style.display = "block";
+            feedbackMessage.style.color = "red";
+            feedbackMessage.textContent = "Error connecting to server.";
+        }
+        btn.disabled = false;
+        btn.textContent = "Send Feedback";
+    });
 });

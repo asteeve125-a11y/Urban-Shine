@@ -41,6 +41,13 @@ const db = new sqlite3.Database('./bookings.db', (err) => {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`);
 
+        db.run(`CREATE TABLE IF NOT EXISTS feedbacks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            feedbackText TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )`);
+
         // Safely try to add mobile and referredBy column if they don't exist
         db.run("ALTER TABLE bookings ADD COLUMN mobile TEXT", (err) => {});
         db.run("ALTER TABLE bookings ADD COLUMN referredBy TEXT", (err) => {});
@@ -219,6 +226,35 @@ app.get('/api/public-reviews', (req, res) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to retrieve reviews' });
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+// Endpoint to submit feedback
+app.post('/api/feedbacks', (req, res) => {
+    const { name, feedbackText } = req.body;
+    
+    const query = `INSERT INTO feedbacks (name, feedbackText) VALUES (?, ?)`;
+    db.run(query, [name, feedbackText], function(err) {
+        if (err) {
+            console.error(err.message);
+            res.status(500).json({ error: 'Failed to submit feedback' });
+        } else {
+            res.status(201).json({ message: 'Feedback submitted successfully' });
+        }
+    });
+});
+
+// Endpoint to get all feedbacks (Admin only)
+app.get('/api/admin/feedbacks', requireAdmin, (req, res) => {
+    const query = `SELECT id, name, feedbackText, created_at FROM feedbacks ORDER BY created_at DESC`;
+    
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            res.status(500).json({ error: 'Failed to retrieve feedbacks' });
         } else {
             res.json(rows);
         }
