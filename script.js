@@ -626,7 +626,8 @@ if (logoLink) {
 document.addEventListener("DOMContentLoaded", function() {
     // 1. Left Slider (Feedback)
     const leftSlider = document.createElement("a");
-    leftSlider.href = "reviews.html";
+    leftSlider.href = "javascript:void(0)";
+    leftSlider.id = "feedback-slider-btn";
     leftSlider.className = "floating-slider-left";
     leftSlider.innerHTML = `
         <div class="slider-icon"><i class="fas fa-comment-dots"></i></div>
@@ -649,4 +650,78 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.body.appendChild(leftSlider);
     document.body.appendChild(rightSlider);
+
+    // Feedback Modal Injection
+    const feedbackModalHtml = `
+    <div id="feedbackModal" class="feedback-modal-overlay">
+        <div class="feedback-modal-content">
+            <span class="feedback-close-btn">&times;</span>
+            <h2>Send Us Your Feedback</h2>
+            <form id="feedbackForm">
+                <input type="text" id="feedbackName" placeholder="Your Name" required>
+                <textarea id="feedbackText" placeholder="Your Feedback" rows="4" required></textarea>
+                <button type="submit" class="feedback-submit-btn">Send Feedback</button>
+            </form>
+            <div id="feedbackMessage" style="display: none; margin-top: 10px;"></div>
+        </div>
+    </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', feedbackModalHtml);
+
+    const feedbackModal = document.getElementById("feedbackModal");
+    const feedbackBtn = document.getElementById("feedback-slider-btn");
+    const feedbackCloseBtn = document.querySelector(".feedback-close-btn");
+    const feedbackForm = document.getElementById("feedbackForm");
+    const feedbackMessage = document.getElementById("feedbackMessage");
+
+    feedbackBtn.addEventListener("click", () => {
+        feedbackModal.style.display = "flex";
+        feedbackMessage.style.display = "none";
+        feedbackForm.reset();
+    });
+
+    feedbackCloseBtn.addEventListener("click", () => {
+        feedbackModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === feedbackModal) {
+            feedbackModal.style.display = "none";
+        }
+    });
+
+    feedbackForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("feedbackName").value;
+        const text = document.getElementById("feedbackText").value;
+        const btn = document.querySelector(".feedback-submit-btn");
+        
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+
+        try {
+            const response = await fetch('/api/feedbacks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, feedbackText: text })
+            });
+            const result = await response.json();
+            if (response.ok) {
+                feedbackMessage.style.display = "block";
+                feedbackMessage.style.color = "green";
+                feedbackMessage.textContent = "Feedback sent successfully!";
+                setTimeout(() => { feedbackModal.style.display = "none"; }, 2000);
+            } else {
+                feedbackMessage.style.display = "block";
+                feedbackMessage.style.color = "red";
+                feedbackMessage.textContent = result.error || "Failed to send feedback.";
+            }
+        } catch (error) {
+            feedbackMessage.style.display = "block";
+            feedbackMessage.style.color = "red";
+            feedbackMessage.textContent = "Error connecting to server.";
+        }
+        btn.disabled = false;
+        btn.textContent = "Send Feedback";
+    });
 });
