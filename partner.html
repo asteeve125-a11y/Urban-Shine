@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Program - Urban Shine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        .partner-hero {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--primary) 100%);
+            padding: 160px 50px 100px;
+            color: var(--white);
+            text-align: center;
+        }
+        .partner-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .partner-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: auto;
+            opacity: 0.9;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: -50px auto 40px;
+            position: relative;
+            z-index: 10;
+        }
+        .partner-feature {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .partner-feature i {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .partner-feature h4 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        .partner-section {
+            padding: 60px 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .commission-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .commission-table, .bonus-box {
+            flex: 1;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .commission-table h3, .bonus-box h3 {
+            text-align: center;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        table th {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        .bonus-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .bonus-item:last-child {
+            border-bottom: none;
+        }
+        .bonus-icon {
+            font-size: 30px;
+            color: #ffd700;
+            margin-right: 15px;
+        }
+        .launch-offer {
+            background: var(--darker);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .launch-offer i {
+            font-size: 40px;
+            color: #ffd700;
+        }
+        .how-it-works, .who-can-join {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .step-list {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 30px;
+            position: relative;
+        }
+        .step-list::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+        .step-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 0 10px;
+        }
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+        }
+        .join-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .join-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+        .join-item i {
+            color: var(--primary);
+            width: 25px;
+        }
+        .bottom-section {
+            display: flex;
+            gap: 30px;
+        }
+        .terms, .why-join {
+            flex: 1;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .list-style-check li {
+            list-style: none;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .list-style-check li i {
+            color: var(--primary);
+            margin-top: 5px;
+        }
+        @media (max-width: 768px) {
+            .commission-container, .bottom-section {
+                flex-direction: column;
+            }
+            .step-list {
+                flex-direction: column;
+            }
+            .step-list::before {
+                display: none;
+            }
+            .step-item {
+                margin-bottom: 20px;
+            }
+            .join-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Logo.png" alt="Urban Shine Logo">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="partner.html">Partner Program</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="contact-number">
+                    <i class="fas fa-phone-alt"></i> +91 7567254083
+                </div>
+                <a href="contact.html" class="btn-book-now">Book Now</a>
+                <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Partner Hero -->
+    <section class="partner-hero">
+        <h1>EARN MORE WITH URBAN SHINE!</h1>
+        <div style="font-size: 24px; font-weight: bold; background: var(--white); color: var(--primary); display: inline-block; padding: 10px 30px; border-radius: 30px; margin-bottom: 20px;">PARTNER PROGRAM</div>
+        <p>Refer customers to Urban Shine and earn exciting commissions on every successful booking!</p>
+    </section>
+
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="partner-feature">
+            <i class="fas fa-home"></i>
+            <h4>Doorstep Service</h4>
+            <p>At Your Convenience</p>
+        </div>
+        <div class="partner-feature">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Premium Quality</h4>
+            <p>You Can Trust</p>
+        </div>
+        <div class="partner-feature">
+            <i class="fas fa-leaf"></i>
+            <h4>Eco-Friendly Products</h4>
+            <p>Safe for You & Environment</p>
+        </div>
+        <div class="partner-feature">
+            <i class="fas fa-star"></i>
+            <h4>Professional & Reliable</h4>
+            <p>Every Single Time</p>
+        </div>
+    </div>
+
+    <section class="partner-section">
+
+        <!-- Generate Referral Link -->
+        <div style="background: var(--white); border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); text-align: center; margin-bottom: 40px;">
+            <h3 style="color: var(--dark); font-size: 24px; margin-bottom: 15px;">Start Earning Now</h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Enter your name below to generate your unique referral link.</p>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; max-width: 500px; margin: 0 auto 25px; flex-wrap: wrap;">
+                <input type="text" id="partnerName" placeholder="Type your name" style="flex: 1; min-width: 200px; padding: 12px 20px; border: 1px solid var(--border); border-radius: 8px; font-size: 16px; outline: none;">
+                <button onclick="generateReferralLink()" class="btn-primary" style="padding: 12px 25px; border: none; cursor: pointer; border-radius: 8px;">Generate Your Link</button>
+            </div>
+
+            <div id="referralResult" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px dashed var(--primary); margin-bottom: 20px; max-width: 600px; margin: 0 auto;">
+                <p style="font-weight: bold; margin-bottom: 10px;">Your Unique Link:</p>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <a id="referralLink" href="#" target="_blank" style="display: block; width: 100%; max-width: 350px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #fff; font-size: 14px; text-align: center; color: var(--primary); text-decoration: none; word-break: break-all;"></a>
+                    <button onclick="copyLink()" style="background: var(--dark); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; white-space: nowrap;"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+
+                <p style="font-weight: bold; margin-bottom: 15px;">Share directly:</p>
+                <div style="display: flex; justify-content: center; gap: 15px;">
+                    <a id="shareWhatsapp" href="#" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: #25D366; color: white; border-radius: 50%; font-size: 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(37,211,102,0.3);"><i class="fab fa-whatsapp"></i></a>
+                    <a id="shareTelegram" href="#" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: #0088cc; color: white; border-radius: 50%; font-size: 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,136,204,0.3);"><i class="fab fa-telegram-plane"></i></a>
+                    <a id="shareInstagram" href="#" target="_blank" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: #E1306C; color: white; border-radius: 50%; font-size: 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(225,48,108,0.3);"><i class="fab fa-instagram"></i></a>
+                    <a id="shareSms" href="#" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: #ff9800; color: white; border-radius: 50%; font-size: 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(255,152,0,0.3);"><i class="fas fa-comment-sms"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Commission and Bonus -->
+        <div class="commission-container">
+            <div class="commission-table">
+                <h3 style="background: var(--dark); color: var(--white); padding: 10px; border-radius: 8px;">HOW MUCH CAN YOU EARN?</h3>
+                <p style="text-align: center; color: var(--text-muted); font-weight: bold; margin-bottom: 15px;">SIMPLE & HIGH COMMISSIONS!</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SERVICE BILL VALUE</th>
+                            <th>YOUR COMMISSION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-coins" style="color: var(--primary);"></i> Up to ₹499</td>
+                            <td style="font-size: 20px; font-weight: bold; color: var(--primary);">₹50</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-coins" style="color: var(--primary);"></i> ₹500 - ₹999</td>
+                            <td style="font-size: 20px; font-weight: bold; color: var(--primary);">₹100</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-coins" style="color: var(--primary);"></i> ₹1,000 - ₹1,999</td>
+                            <td style="font-size: 20px; font-weight: bold; color: var(--primary);">₹150</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-money-bill-wave" style="color: var(--primary);"></i> ₹2,000+</td>
+                            <td style="font-size: 20px; font-weight: bold; color: var(--primary);">10% <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);">of the bill</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bonus-box">
+                <h3 style="background: var(--dark); color: var(--white); padding: 10px; border-radius: 8px;">EXTRA BONUSES</h3>
+                <div class="bonus-item">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-trophy bonus-icon" style="color: #607d8b;"></i>
+                        <div>
+                            <strong style="font-size: 18px;">10</strong> Successful Referrals<br>
+                            <span style="font-size: 12px; color: var(--text-muted);">in a Month</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 20px; font-weight: bold; color: var(--primary);">+ ₹500</span><br>
+                        <span style="font-size: 12px; font-weight: bold;">BONUS</span>
+                    </div>
+                </div>
+                <div class="bonus-item">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-trophy bonus-icon" style="color: #c0c0c0;"></i>
+                        <div>
+                            <strong style="font-size: 18px;">25</strong> Successful Referrals<br>
+                            <span style="font-size: 12px; color: var(--text-muted);">in a Month</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 20px; font-weight: bold; color: var(--primary);">+ ₹2,000</span><br>
+                        <span style="font-size: 12px; font-weight: bold;">BONUS</span>
+                    </div>
+                </div>
+                <div class="bonus-item">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-trophy bonus-icon" style="color: #ffd700;"></i>
+                        <div>
+                            <strong style="font-size: 18px;">50</strong> Successful Referrals<br>
+                            <span style="font-size: 12px; color: var(--text-muted);">in a Month</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 20px; font-weight: bold; color: var(--primary);">+ ₹5,000</span><br>
+                        <span style="font-size: 12px; font-weight: bold;">BONUS</span><br>
+                        <span style="font-size: 12px; font-weight: bold; color: #ffd700;">+ GOLD PARTNER STATUS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Launch Offer -->
+        <div class="launch-offer">
+            <i class="fas fa-bullhorn"></i>
+            <div style="text-align: left;">
+                <div style="font-weight: bold; font-size: 18px; margin-bottom: 5px;">LAUNCH OFFER (FIRST 60 DAYS)</div>
+                <p>Earn <span style="font-weight: bold; font-size: 20px; color: #ffd700;">₹100</span> for every successful first-time customer referral, regardless of the service amount!</p>
+            </div>
+        </div>
+
+        <!-- How it works & Who can join -->
+        <div class="commission-container">
+            <div class="how-it-works" style="flex: 1.5;">
+                <h3 style="color: var(--dark); border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;">HOW IT WORKS</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-share-alt"></i></div>
+                        <p style="font-size: 12px;">Share your unique referral code or link.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i class="far fa-calendar-alt"></i></div>
+                        <p style="font-size: 12px;">Customer books using your code.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-check"></i></div>
+                        <p style="font-size: 12px;">Urban Shine completes the service.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-wallet"></i></div>
+                        <p style="font-size: 12px;">Commission is added to your account.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <p style="font-size: 12px;">You get paid monthly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="who-can-join" style="flex: 1;">
+                <h3 style="color: var(--dark); border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;">WHO CAN JOIN?</h3>
+                <div class="join-grid">
+                    <div class="join-item"><i class="fas fa-users"></i> Society Residents</div>
+                    <div class="join-item"><i class="fas fa-store"></i> Automobile Accessory Shops</div>
+                    <div class="join-item"><i class="fas fa-star"></i> Influencers</div>
+                    <div class="join-item"><i class="fas fa-wrench"></i> Mechanics & Garages</div>
+                    <div class="join-item"><i class="fas fa-user-friends"></i> Friends & Family</div>
+                    <div class="join-item"><i class="fas fa-building"></i> Corporate Employees</div>
+                    <div class="join-item"><i class="fas fa-motorcycle"></i> Car & Bike Enthusiasts</div>
+                    <div class="join-item"><i class="fas fa-user-check"></i> Existing Urban Shine Customers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms and Why Join -->
+        <div class="bottom-section">
+            <div class="terms">
+                <h3 style="color: var(--dark); border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;">PAYMENT TERMS</h3>
+                <ul class="list-style-check">
+                    <li><i class="fas fa-check-circle"></i> Commission is paid only after the customer completes the service and payment is received.</li>
+                    <li><i class="fas fa-check-circle"></i> Payouts are made once a month (on the 5th of each month).</li>
+                    <li><i class="fas fa-check-circle"></i> No limit on the number of referrals.</li>
+                </ul>
+            </div>
+            
+            <div class="why-join">
+                <h3 style="color: var(--dark); border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;">WHY JOIN URBAN SHINE PARTNER PROGRAM?</h3>
+                <ul class="list-style-check">
+                    <li><i class="fas fa-chart-line"></i> High & Transparent Earnings</li>
+                    <li><i class="fas fa-share-square"></i> Easy to Share & Refer</li>
+                    <li><i class="fas fa-medal"></i> Trusted Brand & Quality Service</li>
+                    <li><i class="fas fa-handshake"></i> Grow with Us & Earn More</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Call to action -->
+        <div style="background: var(--darker); color: var(--white); padding: 40px; border-radius: 12px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <div>
+                <h2 style="font-size: 30px; margin-bottom: 10px;">REFER TODAY. EARN TOMORROW.</h2>
+                <h3 style="color: #64b5f6; font-style: italic;">LET'S SHINE TOGETHER!</h3>
+            </div>
+            <a href="https://wa.me/+917567254083" target="_blank" class="btn-primary" style="font-size: 18px; padding: 15px 30px;"><i class="fab fa-whatsapp"></i> Join Now! (WhatsApp)</a>
+        </div>
+
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo">
+                    <img src="Logo.png" alt="Urban Shine">
+                </div>
+                <p>Urban Shine - Professional Car Wash at Your Doorstep.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="monthly-packages.html">Monthly Packages</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="partner.html">Partner Program</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+                <div class="footer-socials" style="margin-top: 15px;">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Urban Shine. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Update active class in nav
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    </script>
+    <script>
+        function generateReferralLink() {
+            const name = document.getElementById('partnerName').value.trim();
+            if(!name) {
+                alert('Please enter your name first.');
+                return;
+            }
+            
+            // Create a simple referral code based on the name
+            const refCode = name.toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(Math.random() * 1000);
+            
+            // Build the absolute URL (assuming index.html is the landing page)
+            let baseUrl = window.location.href.split('partner.html')[0];
+            if (!baseUrl.endsWith('/')) baseUrl += '/';
+            const referralLink = `${baseUrl}index.html?ref=${refCode}&partner=${encodeURIComponent(name)}`;
+            
+            const linkElement = document.getElementById('referralLink');
+            linkElement.href = referralLink;
+            linkElement.innerText = referralLink;
+            document.getElementById('referralResult').style.display = 'block';
+
+            // Set up share links
+            const shareText = `Book your premium car wash with Urban Shine using my referral link!`;
+            const encodedText = encodeURIComponent(shareText + "\n\n" + referralLink);
+            
+            document.getElementById('shareWhatsapp').href = `https://wa.me/?text=${encodedText}`;
+            document.getElementById('shareTelegram').href = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(shareText)}`;
+            
+            // Instagram direct doesn't have a simple web URL share scheme that populates text, 
+            // usually you direct them to instagram.com. We can just copy the link to clipboard.
+            document.getElementById('shareInstagram').href = `https://instagram.com/`;
+            document.getElementById('shareInstagram').onclick = function(e) {
+                copyLink(true);
+                alert('Link copied! You can now paste it in your Instagram story or message.');
+            };
+
+            // SMS
+            document.getElementById('shareSms').href = `sms:?&body=${encodedText}`;
+        }
+
+        function copyLink(silent = false) {
+            const linkText = document.getElementById('referralLink').href;
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(linkText).then(() => {
+                    if(!silent) alert("Referral link copied to clipboard!");
+                }).catch(err => {
+                    console.error("Failed to copy", err);
+                });
+            } else {
+                // Fallback for older browsers or non-secure contexts
+                const textArea = document.createElement("textarea");
+                textArea.value = linkText;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    if(!silent) alert("Referral link copied to clipboard!");
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+    </script>
+</body>
+</html>
