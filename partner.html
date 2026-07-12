@@ -206,20 +206,55 @@
             margin-top: 5px;
         }
         @media (max-width: 768px) {
+            .partner-hero {
+                padding: 120px 20px 60px !important;
+            }
+            .partner-hero h1 {
+                font-size: 32px !important;
+            }
+            .partner-section {
+                padding: 40px 20px !important;
+            }
             .commission-container, .bottom-section {
                 flex-direction: column;
+                gap: 20px;
             }
             .step-list {
                 flex-direction: column;
+                align-items: center;
+                gap: 20px;
             }
             .step-list::before {
                 display: none;
             }
             .step-item {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
+                width: 100%;
+                max-width: 300px;
             }
             .join-grid {
                 grid-template-columns: 1fr;
+            }
+            .commission-table, .bonus-box, .how-it-works, .who-can-join, .terms, .why-join {
+                padding: 20px !important;
+            }
+            table th, table td {
+                padding: 10px 5px;
+                font-size: 14px;
+            }
+            .launch-offer {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+        
+        /* Utility class for responsive padding on custom blocks */
+        .responsive-padding {
+            padding: 40px;
+        }
+        @media (max-width: 768px) {
+            .responsive-padding {
+                padding: 20px !important;
             }
         }
     </style>
@@ -289,7 +324,7 @@
     <section class="partner-section">
 
         <!-- Generate Referral Link -->
-        <div style="background: var(--white); border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); text-align: center; margin-bottom: 40px;">
+        <div class="responsive-padding" style="background: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); text-align: center; margin-bottom: 40px; overflow: hidden; width: 100%; box-sizing: border-box;">
             <h3 style="color: var(--dark); font-size: 24px; margin-bottom: 15px;">Start Earning Now</h3>
             <p style="color: var(--text-muted); margin-bottom: 25px;">Enter your name below to generate your unique referral link.</p>
             
@@ -299,10 +334,18 @@
             </div>
 
             <div id="referralResult" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px dashed var(--primary); margin-bottom: 20px; max-width: 600px; margin: 0 auto;">
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                    <p style="font-weight: bold; margin-bottom: 5px; color: var(--dark);">Your Referral Code:</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span id="displayRefCode" style="font-size: 24px; font-weight: bold; color: var(--primary); letter-spacing: 2px;"></span>
+                        <button onclick="copyRefCode()" style="background: var(--primary); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; white-space: nowrap;"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                </div>
+
                 <p style="font-weight: bold; margin-bottom: 10px;">Your Unique Link:</p>
                 <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
                     <a id="referralLink" href="#" target="_blank" style="display: block; width: 100%; max-width: 350px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #fff; font-size: 14px; text-align: center; color: var(--primary); text-decoration: none; word-break: break-all;"></a>
-                    <button onclick="copyLink()" style="background: var(--dark); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; white-space: nowrap;"><i class="fas fa-copy"></i> Copy</button>
+                    <button onclick="copyLink()" style="background: var(--dark); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; white-space: nowrap;"><i class="fas fa-copy"></i> Copy Link</button>
                 </div>
 
                 <p style="font-weight: bold; margin-bottom: 15px;">Share directly:</p>
@@ -468,7 +511,7 @@
         </div>
 
         <!-- Call to action -->
-        <div style="background: var(--darker); color: var(--white); padding: 40px; border-radius: 12px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div class="responsive-padding" style="background: var(--darker); color: var(--white); border-radius: 12px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%; box-sizing: border-box;">
             <div>
                 <h2 style="font-size: 30px; margin-bottom: 10px;">REFER TODAY. EARN TOMORROW.</h2>
                 <h3 style="color: #64b5f6; font-style: italic;">LET'S SHINE TOGETHER!</h3>
@@ -545,6 +588,7 @@
             const linkElement = document.getElementById('referralLink');
             linkElement.href = referralLink;
             linkElement.innerText = referralLink;
+            document.getElementById('displayRefCode').innerText = refCode;
             document.getElementById('referralResult').style.display = 'block';
 
             // Set up share links
@@ -586,9 +630,19 @@
                     document.execCommand('copy');
                     if(!silent) alert("Referral link copied to clipboard!");
                 } catch (err) {
-                    console.error('Fallback: Oops, unable to copy', err);
+                    alert('Failed to copy. Please manually copy the link.');
                 }
                 document.body.removeChild(textArea);
+            }
+        }
+
+        async function copyRefCode() {
+            const refCode = document.getElementById('displayRefCode').innerText;
+            try {
+                await navigator.clipboard.writeText(refCode);
+                alert('Referral code copied to clipboard!');
+            } catch (err) {
+                alert('Failed to copy. Please manually copy the code.');
             }
         }
     </script>

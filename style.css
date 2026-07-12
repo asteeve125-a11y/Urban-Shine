@@ -839,6 +839,90 @@ footer {
 /* =========================
    RESPONSIVE
 ========================= */
+/* Responsive padding utilities */
+.responsive-box {
+    padding: 30px;
+    box-sizing: border-box;
+    width: 100%;
+}
+.responsive-section-padding {
+    padding: 60px 50px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* =========================
+   FLOATING SLIDERS
+========================= */
+.floating-slider-left, .floating-slider-right {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+/* Left Slider (Blue / Feedback) */
+.floating-slider-left {
+    left: -120px;
+    background: #007bff; /* Blue */
+    color: white;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 15px 10px 20px;
+}
+.floating-slider-left:hover {
+    left: 0;
+}
+.floating-slider-left .slider-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+.floating-slider-left .slider-icon {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+/* Right Slider (Green / Support Us) */
+.floating-slider-right {
+    right: -150px;
+    background: #28a745; /* Green */
+    color: white;
+    border-radius: 8px 0 0 8px;
+    padding: 15px;
+    flex-direction: row-reverse;
+}
+.floating-slider-right:hover {
+    right: 0;
+}
+.floating-slider-right .slider-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+.floating-slider-right .slider-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 15px;
+}
+.floating-slider-right .slider-content a {
+    color: white;
+    font-size: 20px;
+    margin: 5px 0;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.floating-slider-right .slider-content a:hover {
+    transform: scale(1.2);
+    color: #f8f9fa;
+}
+
+
 @media (max-width: 1200px) {
     .services-layout {
         flex-direction: column;
@@ -926,6 +1010,8 @@ footer {
     .page-header { padding: 120px 20px 30px; }
     .page-header h1 { font-size: 28px; }
     .page-content { padding: 40px 20px; }
+    .responsive-box { padding: 20px !important; }
+    .responsive-section-padding { padding: 40px 20px !important; }
 }
 
 @media (max-width: 480px) {

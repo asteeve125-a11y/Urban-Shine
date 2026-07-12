@@ -82,6 +82,11 @@ if (bookingForm) {
         input.addEventListener('change', updateGrandTotal);
     });
 
+    // Auto-fill referral code if available
+    const manualRefInput = document.getElementById('manualReferralCode');
+    if (manualRefInput && sessionStorage.getItem('referral_code')) {
+        manualRefInput.value = sessionStorage.getItem('referral_code');
+    }
 
     bookingForm.addEventListener("submit", async function(e){
         e.preventDefault();
@@ -104,7 +109,16 @@ if (bookingForm) {
         const grandTotal = document.getElementById("totalAmount").innerText;
         
         let referredBy = null;
-        if (sessionStorage.getItem('referral_partner')) {
+        const manualCode = document.getElementById("manualReferralCode") ? document.getElementById("manualReferralCode").value.trim() : "";
+
+        if (manualCode) {
+            // If it perfectly matches session storage, keep the full name format
+            if (manualCode === sessionStorage.getItem('referral_code')) {
+                referredBy = `${sessionStorage.getItem('referral_partner')} (${manualCode})`;
+            } else {
+                referredBy = manualCode;
+            }
+        } else if (sessionStorage.getItem('referral_partner')) {
             referredBy = `${sessionStorage.getItem('referral_partner')} (${sessionStorage.getItem('referral_code')})`;
         }
         
@@ -271,6 +285,232 @@ const carDatabase = {
     "kodiaq": "SUV 7 SEATER", "tiguan allspace": "SUV 7 SEATER", "meridian": "SUV 7 SEATER", "carnival": "SUV 7 SEATER", 
     "vellfire": "SUV 7 SEATER", "rumion": "SUV 7 SEATER", "invicto": "SUV 7 SEATER", "q7": "SUV 7 SEATER", "x5": "SUV 7 SEATER",
     "x7": "SUV 7 SEATER", "gls": "SUV 7 SEATER", "gle": "SUV 7 SEATER", "defender": "SUV 7 SEATER", "discovery": "SUV 7 SEATER"
+,
+    // Added Exhaustive Car List
+    "a class": "HATCHBACK",
+    "b class": "HATCHBACK",
+    "1 series": "HATCHBACK",
+    "a1": "HATCHBACK",
+    "a3 hatchback": "HATCHBACK",
+    "polo": "HATCHBACK",
+    "golf": "HATCHBACK",
+    "up": "HATCHBACK",
+    "citroen c3": "HATCHBACK",
+    "mini cooper": "HATCHBACK",
+    "swift": "HATCHBACK",
+    "baleno": "HATCHBACK",
+    "celerio": "HATCHBACK",
+    "wagonr": "HATCHBACK",
+    "alto": "HATCHBACK",
+    "s-presso": "HATCHBACK",
+    "ignis": "HATCHBACK",
+    "ritz": "HATCHBACK",
+    "zen": "HATCHBACK",
+    "estilo": "HATCHBACK",
+    "a-star": "HATCHBACK",
+    "tiago": "HATCHBACK",
+    "altroz": "HATCHBACK",
+    "indica": "HATCHBACK",
+    "vista": "HATCHBACK",
+    "bolt": "HATCHBACK",
+    "nano": "HATCHBACK",
+    "comet": "HATCHBACK",
+    "i20": "HATCHBACK",
+    "grand i10": "HATCHBACK",
+    "nios": "HATCHBACK",
+    "santro": "HATCHBACK",
+    "eon": "HATCHBACK",
+    "getz": "HATCHBACK",
+    "brio": "HATCHBACK",
+    "jazz": "HATCHBACK",
+    "figo": "HATCHBACK",
+    "beat": "HATCHBACK",
+    "spark": "HATCHBACK",
+    "uva": "HATCHBACK",
+    "micra": "HATCHBACK",
+    "datsun go": "HATCHBACK",
+    "redi-go": "HATCHBACK",
+    "kwid": "HATCHBACK",
+    "pulse": "HATCHBACK",
+    "fabia": "HATCHBACK",
+    "3 series": "SEDAN",
+    "5 series": "SEDAN",
+    "7 series": "SEDAN",
+    "m3": "SEDAN",
+    "m5": "SEDAN",
+    "c class": "SEDAN",
+    "e class": "SEDAN",
+    "s class": "SEDAN",
+    "maybach s": "SEDAN",
+    "cla": "SEDAN",
+    "cls": "SEDAN",
+    "a3": "SEDAN",
+    "a4": "SEDAN",
+    "a6": "SEDAN",
+    "a8": "SEDAN",
+    "s60": "SEDAN",
+    "s90": "SEDAN",
+    "es": "SEDAN",
+    "ls": "SEDAN",
+    "is": "SEDAN",
+    "camry": "SEDAN",
+    "corolla": "SEDAN",
+    "yaris": "SEDAN",
+    "etios": "SEDAN",
+    "city": "SEDAN",
+    "amaze": "SEDAN",
+    "civic": "SEDAN",
+    "accord": "SEDAN",
+    "verna": "SEDAN",
+    "elantra": "SEDAN",
+    "aura": "SEDAN",
+    "accent": "SEDAN",
+    "sonata": "SEDAN",
+    "slavia": "SEDAN",
+    "rapid": "SEDAN",
+    "octavia": "SEDAN",
+    "superb": "SEDAN",
+    "laura": "SEDAN",
+    "virtus": "SEDAN",
+    "vento": "SEDAN",
+    "jetta": "SEDAN",
+    "passat": "SEDAN",
+    "ameo": "SEDAN",
+    "dzire": "SEDAN",
+    "ciaz": "SEDAN",
+    "kizashi": "SEDAN",
+    "esteem": "SEDAN",
+    "sx4": "SEDAN",
+    "tigor": "SEDAN",
+    "zest": "SEDAN",
+    "indigo": "SEDAN",
+    "manza": "SEDAN",
+    "aspire": "SEDAN",
+    "fiesta": "SEDAN",
+    "ikon": "SEDAN",
+    "escort": "SEDAN",
+    "sunny": "SEDAN",
+    "teana": "SEDAN",
+    "cruze": "SEDAN",
+    "optra": "SEDAN",
+    "aveo": "SEDAN",
+    "sail": "SEDAN",
+    "fluence": "SEDAN",
+    "scala": "SEDAN",
+    "x1": "COMPACT SUV",
+    "x2": "COMPACT SUV",
+    "gla": "COMPACT SUV",
+    "glb": "COMPACT SUV",
+    "q2": "COMPACT SUV",
+    "q3": "COMPACT SUV",
+    "xc40": "COMPACT SUV",
+    "brezza": "COMPACT SUV",
+    "fronx": "COMPACT SUV",
+    "jimny": "COMPACT SUV",
+    "gv": "COMPACT SUV",
+    "grand vitara": "COMPACT SUV",
+    "nexon": "COMPACT SUV",
+    "punch": "COMPACT SUV",
+    "curvv": "COMPACT SUV",
+    "venue": "COMPACT SUV",
+    "sonet": "COMPACT SUV",
+    "kushaq": "COMPACT SUV",
+    "taigun": "COMPACT SUV",
+    "ecosport": "COMPACT SUV",
+    "magnite": "COMPACT SUV",
+    "kiger": "COMPACT SUV",
+    "xuv300": "COMPACT SUV",
+    "xuv 3x0": "COMPACT SUV",
+    "wr-v": "COMPACT SUV",
+    "duster": "COMPACT SUV",
+    "astor": "COMPACT SUV",
+    "x3": "SUV 5 SEATER",
+    "x4": "SUV 5 SEATER",
+    "x5": "SUV 5 SEATER",
+    "glc": "SUV 5 SEATER",
+    "gle": "SUV 5 SEATER",
+    "q5": "SUV 5 SEATER",
+    "q7": "SUV 5 SEATER",
+    "q8": "SUV 5 SEATER",
+    "xc60": "SUV 5 SEATER",
+    "xc90": "SUV 5 SEATER",
+    "macan": "SUV 5 SEATER",
+    "cayenne": "SUV 5 SEATER",
+    "range rover evoque": "SUV 5 SEATER",
+    "velar": "SUV 5 SEATER",
+    "discovery sport": "SUV 5 SEATER",
+    "defender 90": "SUV 5 SEATER",
+    "compass": "SUV 5 SEATER",
+    "wrangler": "SUV 5 SEATER",
+    "nx": "SUV 5 SEATER",
+    "rx": "SUV 5 SEATER",
+    "creta": "SUV 5 SEATER",
+    "seltos": "SUV 5 SEATER",
+    "tucson": "SUV 5 SEATER",
+    "sportage": "SUV 5 SEATER",
+    "harrier": "SUV 5 SEATER",
+    "hector": "SUV 5 SEATER",
+    "kicks": "SUV 5 SEATER",
+    "terrano": "SUV 5 SEATER",
+    "s-cross": "SUV 5 SEATER",
+    "captur": "SUV 5 SEATER",
+    "c5 aircross": "SUV 5 SEATER",
+    "x7": "SUV 7 SEATER",
+    "gls": "SUV 7 SEATER",
+    "maybach gls": "SUV 7 SEATER",
+    "range rover": "SUV 7 SEATER",
+    "range rover sport": "SUV 7 SEATER",
+    "defender 110": "SUV 7 SEATER",
+    "defender 130": "SUV 7 SEATER",
+    "discovery": "SUV 7 SEATER",
+    "lx": "SUV 7 SEATER",
+    "grand cherokee": "SUV 7 SEATER",
+    "fortuner": "SUV 7 SEATER",
+    "innova": "SUV 7 SEATER",
+    "innova crysta": "SUV 7 SEATER",
+    "innova hycross": "SUV 7 SEATER",
+    "land cruiser": "SUV 7 SEATER",
+    "vellfire": "SUV 7 SEATER",
+    "rumion": "SUV 7 SEATER",
+    "safari": "SUV 7 SEATER",
+    "hexa": "SUV 7 SEATER",
+    "aria": "SUV 7 SEATER",
+    "xuv3XO": "Compact SUV",
+    "xuv300": "Compact SUV",
+    "xuv500": "SUV 7 SEATER",
+    "xuv700": "SUV 7 SEATER",
+    "scorpio": "SUV 7 SEATER",
+    "Xylo": "SUV 7 SEATER",
+    "scorpio-n": "SUV 7 SEATER",
+    "scorpio classic": "SUV 7 SEATER",
+    "bolero": "SUV 7 SEATER",
+    "bolero neo": "SUV 7 SEATER",
+    "marazzo": "SUV 7 SEATER",
+    "alturas g4": "SUV 7 SEATER",
+    "ertiga": "SUV 7 SEATER",
+    "xl6": "SUV 7 SEATER",
+    "invicto": "SUV 7 SEATER",
+    "carens": "SUV 7 SEATER",
+    "carnival": "SUV 7 SEATER",
+    "alcazar": "SUV 7 SEATER",
+    "endeavour": "SUV 7 SEATER",
+    "everest": "SUV 7 SEATER",
+    "hector": "SUV 5 SEATER",
+    "hector plus": "SUV 7 SEATER",
+    "gloster": "SUV 7 SEATER",
+    "kodiaq": "SUV 7 SEATER",
+    "tiguan allspace": "SUV 7 SEATER",
+    "mu-x": "SUV 7 SEATER",
+    "v-cross": "SUV 7 SEATER",
+    "triber": "SUV 7 SEATER",
+    "lodgy": "SUV 7 SEATER",
+    "pajero": "SUV 7 SEATER",
+    "pajero sport": "SUV 7 SEATER",
+    "outlander": "SUV 7 SEATER",
+    "trailblazer": "SUV 7 SEATER",
+    "captiva": "SUV 7 SEATER",
+    "enjoy": "SUV 7 SEATER",
+    "tavera": "SUV 7 SEATER"
 };
 
 function findCarCategory() {
@@ -379,3 +619,34 @@ if (logoLink) {
         }
     });
 }
+
+// ===============================
+// FLOATING SLIDERS INJECTION
+// ===============================
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Left Slider (Feedback)
+    const leftSlider = document.createElement("a");
+    leftSlider.href = "reviews.html";
+    leftSlider.className = "floating-slider-left";
+    leftSlider.innerHTML = `
+        <div class="slider-icon"><i class="fas fa-comment-dots"></i></div>
+        <div class="slider-text">Feedback</div>
+    `;
+    
+    // 2. Right Slider (Support Us)
+    const rightSlider = document.createElement("div");
+    rightSlider.className = "floating-slider-right";
+    rightSlider.innerHTML = `
+        <div class="slider-icon"><i class="fas fa-heart"></i></div>
+        <div class="slider-content">
+            <span style="font-weight: bold; margin-bottom: 5px; display: block; white-space: nowrap; font-size: 14px;">Support Us</span>
+            <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/917567254083" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    `;
+
+    document.body.appendChild(leftSlider);
+    document.body.appendChild(rightSlider);
+});
