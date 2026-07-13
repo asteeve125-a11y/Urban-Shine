@@ -580,9 +580,9 @@
             // Create a simple referral code based on the name
             const refCode = name.toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(Math.random() * 1000);
             
-            // Build the absolute URL (assuming index.html is the landing page)
-            let baseUrl = window.location.href.split('partner.html')[0];
-            if (!baseUrl.endsWith('/')) baseUrl += '/';
+            // Build the absolute URL robustly
+            let currentUrl = window.location.href.split('?')[0].split('#')[0];
+            let baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
             const referralLink = `${baseUrl}index.html?ref=${refCode}&partner=${encodeURIComponent(name)}`;
             
             const linkElement = document.getElementById('referralLink');
