@@ -65,6 +65,21 @@
             </table>
         </div>
         
+        <h1 style="margin-top: 50px;">🤝 Partner Referrals (Successful)</h1>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Partner / Referral Code</th>
+                        <th>Total Successful Bookings</th>
+                    </tr>
+                </thead>
+                <tbody id="referralsTableBody">
+                    <tr><td colspan="2" style="text-align:center;">Loading referrals...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
         <h1 style="margin-top: 50px;">⭐ Customer Reviews</h1>
         <div class="table-responsive">
             <table>
@@ -185,9 +200,35 @@
                     `;
                     tbody.appendChild(tr);
                 });
+
+                // Calculate and populate referrals
+                const referralCounts = {};
+                bookings.forEach(b => {
+                    if (b.referredBy && b.referredBy.trim() !== '' && b.referredBy !== '-') {
+                        referralCounts[b.referredBy] = (referralCounts[b.referredBy] || 0) + 1;
+                    }
+                });
+
+                const refTbody = document.getElementById('referralsTableBody');
+                if (Object.keys(referralCounts).length === 0) {
+                    refTbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">No successful referrals yet.</td></tr>';
+                } else {
+                    refTbody.innerHTML = '';
+                    const sortedReferrals = Object.entries(referralCounts).sort((a, b) => b[1] - a[1]);
+                    sortedReferrals.forEach(([partner, count]) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td><strong style="color:var(--primary); font-size: 16px;">${partner}</strong></td>
+                            <td><span style="background: #ffd700; color: #333; font-weight: bold; padding: 6px 15px; border-radius: 20px; font-size: 15px;"><i class="fas fa-trophy" style="margin-right: 5px;"></i> ${count}</span></td>
+                        `;
+                        refTbody.appendChild(tr);
+                    });
+                }
+                
             } catch (error) {
                 console.error("Error fetching bookings:", error);
                 tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:red;">Error loading bookings. Make sure the server is running.</td></tr>';
+                document.getElementById('referralsTableBody').innerHTML = '<tr><td colspan="2" style="text-align:center; color:red;">Error loading referrals.</td></tr>';
             }
         }
         
