@@ -126,7 +126,7 @@
             const password = document.getElementById('adminPass').value;
             
             try {
-                const res = await fetch('http://localhost:3000/api/admin/login', {
+                const res = await fetch('/api/admin/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -167,7 +167,7 @@
             tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">Loading bookings...</td></tr>';
             
             try {
-                const response = await fetch('http://localhost:3000/api/bookings', {
+                const response = await fetch('/api/bookings', {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
                 });
                 const bookings = await response.json();
@@ -237,7 +237,7 @@
             tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading reviews...</td></tr>';
             
             try {
-                const response = await fetch('http://localhost:3000/api/reviews', {
+                const response = await fetch('/api/reviews', {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
                 });
                 const reviews = await response.json();
@@ -286,7 +286,7 @@
             tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Loading feedbacks...</td></tr>';
             
             try {
-                const response = await fetch('http://localhost:3000/api/admin/feedbacks', {
+                const response = await fetch('/api/admin/feedbacks', {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
                 });
                 const feedbacks = await response.json();
@@ -323,7 +323,7 @@
             const newText = prompt("Edit Review:", currentText);
             if (newText !== null && newText !== currentText) {
                 try {
-                    const response = await fetch(`http://localhost:3000/api/reviews/${id}`, {
+                    const response = await fetch(`/api/reviews/${id}`, {
                         method: 'PUT',
                         headers: { 
                             'Content-Type': 'application/json',
