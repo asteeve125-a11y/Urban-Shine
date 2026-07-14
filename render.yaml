@@ -2,6 +2,7 @@ services:
   - type: web
     name: urban-shine-backend
     env: node
+    plan: free
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -9,8 +10,11 @@ services:
         fromDatabase:
           name: urban-shine-db
           property: connectionString
+      - key: NODE_VERSION
+        value: 20.x
 
 databases:
   - name: urban-shine-db
+    plan: free
     databaseName: urbanshine
     user: urbanshine_user
