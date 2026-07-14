@@ -181,7 +181,7 @@
                 bookings.forEach(b => {
                     const tr = document.createElement('tr');
                     // Append 'Z' to tell JavaScript this is a UTC timestamp, so it converts to local time correctly
-                    const receivedDate = new Date(b.created_at + 'Z').toLocaleString('en-IN', {
+                    const receivedDate = new Date(b.created_at).toLocaleString('en-IN', {
                         dateStyle: 'medium',
                         timeStyle: 'short'
                     });
@@ -194,8 +194,8 @@
                         <td>${b.house}, ${b.area}</td>
                         <td>${b.car}</td>
                         <td style="color:var(--primary); font-weight:bold;">${b.date}</td>
-                        <td><span class="badge badge-package">${b.packageType}</span></td>
-                        <td><span class="badge badge-wash">${b.washType}</span></td>
+                        <td><span class="badge badge-package">${b.packagetype || b.packageType || 'N/A'}</span></td>
+                        <td><span class="badge badge-wash">${b.washtype || b.washType || 'N/A'}</span></td>
                         <td>${b.referredBy ? `<span style="background:#ffd700; color:#333; font-weight:bold; padding:4px 8px; border-radius:4px; font-size:12px;">${b.referredBy}</span>` : '-'}</td>
                     `;
                     tbody.appendChild(tr);
@@ -250,7 +250,7 @@
                 tbody.innerHTML = '';
                 reviews.forEach(r => {
                     const tr = document.createElement('tr');
-                    const receivedDate = new Date(r.created_at + 'Z').toLocaleString('en-IN', {
+                    const receivedDate = new Date(r.created_at).toLocaleString('en-IN', {
                         dateStyle: 'medium',
                         timeStyle: 'short'
                     });
@@ -299,7 +299,7 @@
                 tbody.innerHTML = '';
                 feedbacks.forEach(f => {
                     const tr = document.createElement('tr');
-                    const receivedDate = new Date(f.created_at + 'Z').toLocaleString('en-IN', {
+                    const receivedDate = new Date(f.created_at).toLocaleString('en-IN', {
                         dateStyle: 'medium',
                         timeStyle: 'short'
                     });

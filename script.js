@@ -454,6 +454,7 @@ const carDatabase = {
     "terrano": "SUV 5 SEATER",
     "s-cross": "SUV 5 SEATER",
     "captur": "SUV 5 SEATER",
+    "victoris": "SUV 5 SEATER",
     "c5 aircross": "SUV 5 SEATER",
     "x7": "SUV 7 SEATER",
     "gls": "SUV 7 SEATER",
@@ -585,6 +586,10 @@ if (contactCarInput && liveCategoryResult) {
         
         if (foundCategory) {
             liveCategoryResult.innerHTML = `Auto-Detected Category: <span style="color: var(--primary);">${foundCategory}</span>`;
+            const carTypeRadio = document.querySelector(`input[name="carType"][value="${foundCategory}"]`);
+            if (carTypeRadio) {
+                carTypeRadio.checked = true;
+            }
         } else {
             liveCategoryResult.innerHTML = `<span style="color: #e74c3c; font-weight: normal; font-size: 13px;">Keep typing car model...</span>`;
         }
@@ -724,4 +729,14 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.disabled = false;
         btn.textContent = "Send Feedback";
     });
+
+    // Prevent past dates from being selected in the booking form
+    const bookingDateInput = document.getElementById("date");
+    if (bookingDateInput) {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        bookingDateInput.setAttribute('min', `${yyyy}-${mm}-${dd}`);
+    }
 });
