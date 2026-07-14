@@ -646,7 +646,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="slider-icon"><i class="fas fa-heart"></i></div>
         <div class="slider-content">
             <span style="font-weight: bold; margin-bottom: 5px; display: block; white-space: nowrap; font-size: 14px;">Support Us</span>
-            <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/urban.shine.gandhinagar?igsh=MjZnM2p3NG44OTNy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://wa.me/917567254083" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>

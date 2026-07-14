@@ -26,6 +26,17 @@
         .login-container button:active { transform: scale(0.96); opacity: 0.9; }
         .error-msg { color: red; font-size: 14px; margin-top: 10px; display: none; }
         .logout-btn { float: right; padding: 8px 15px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .dashboard-container { padding: 15px; }
+            h1 { font-size: 22px; margin-top: 20px; }
+            .logout-btn { float: none; display: block; width: 100%; margin-bottom: 15px; text-align: center; }
+            .home-link { display: block; width: 100%; text-align: center; margin-bottom: 15px; }
+            .refresh-btn { width: 100%; display: block; }
+            th, td { padding: 10px 8px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
