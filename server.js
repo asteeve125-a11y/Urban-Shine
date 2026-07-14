@@ -1,5 +1,5 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
+const { Pool } = require('pg');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
@@ -12,46 +12,60 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('.')); // Serve static HTML files from the same directory
 
-// Initialize SQLite Database
-const db = new sqlite3.Database('./bookings.db', (err) => {
-    if (err) {
-        console.error('Error opening database', err.message);
-    } else {
-        console.log('Connected to the SQLite database.');
-        db.run(`CREATE TABLE IF NOT EXISTS bookings (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            area TEXT,
-            house TEXT,
-            car TEXT,
-            date TEXT,
-            packageType TEXT,
-            washType TEXT,
-            mobile TEXT,
-            referredBy TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )`);
-        
-        db.run(`CREATE TABLE IF NOT EXISTS reviews (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            city TEXT,
-            rating INTEGER,
-            reviewText TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )`);
-
-        db.run(`CREATE TABLE IF NOT EXISTS feedbacks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            feedbackText TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )`);
-
-        // Safely try to add mobile and referredBy column if they don't exist
-        db.run("ALTER TABLE bookings ADD COLUMN mobile TEXT", (err) => {});
-        db.run("ALTER TABLE bookings ADD COLUMN referredBy TEXT", (err) => {});
+// Initialize PostgreSQL Database
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
     }
+});
+
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error('Error acquiring client', err.stack);
+    }
+    console.log('Connected to the PostgreSQL database.');
+    client.query(`CREATE TABLE IF NOT EXISTS bookings (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        area TEXT,
+        house TEXT,
+        car TEXT,
+        date TEXT,
+        packageType TEXT,
+        washType TEXT,
+        mobile TEXT,
+        referredBy TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`, (err, result) => {
+        if (err) console.error('Error creating bookings table', err.stack);
+    });
+    
+    client.query(`CREATE TABLE IF NOT EXISTS reviews (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        city TEXT,
+        rating INTEGER,
+        reviewText TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`, (err, result) => {
+        if (err) console.error('Error creating reviews table', err.stack);
+    });
+
+    client.query(`CREATE TABLE IF NOT EXISTS feedbacks (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        feedbackText TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`, (err, result) => {
+        if (err) console.error('Error creating feedbacks table', err.stack);
+    });
+
+    // Safely try to add mobile and referredBy column if they don't exist
+    client.query("ALTER TABLE bookings ADD COLUMN mobile TEXT").catch(e => {});
+    client.query("ALTER TABLE bookings ADD COLUMN referredBy TEXT").catch(e => {});
+    
+    release();
 });
 
 // Admin Authentication Logic
@@ -91,9 +105,9 @@ function requireAdmin(req, res, next) {
 app.post('/api/bookings', (req, res) => {
     const { name, mobile, area, house, car, date, packageType, washType, grandTotal, referredBy } = req.body;
     
-    const query = `INSERT INTO bookings (name, mobile, area, house, car, date, packageType, washType, referredBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO bookings (name, mobile, area, house, car, date, packageType, washType, referredBy) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`;
     
-    db.run(query, [name, mobile, area, house, car, date, packageType, washType, referredBy], function(err) {
+    pool.query(query, [name, mobile, area, house, car, date, packageType, washType, referredBy], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to save booking' });
@@ -131,7 +145,7 @@ app.post('/api/bookings', (req, res) => {
                 }
             });
 
-            res.status(201).json({ id: this.lastID, message: 'Booking saved successfully' });
+            res.status(201).json({ id: result.rows[0].id, message: 'Booking saved successfully' });
         }
     });
 });
@@ -140,12 +154,12 @@ app.post('/api/bookings', (req, res) => {
 app.get('/api/bookings', requireAdmin, (req, res) => {
     const query = `SELECT * FROM bookings ORDER BY created_at DESC`;
     
-    db.all(query, [], (err, rows) => {
+    pool.query(query, [], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to retrieve bookings' });
         } else {
-            res.json(rows);
+            res.json(result.rows);
         }
     });
 });
@@ -154,9 +168,9 @@ app.get('/api/bookings', requireAdmin, (req, res) => {
 app.post('/api/reviews', (req, res) => {
     const { name, city, rating, reviewText } = req.body;
     
-    const query = `INSERT INTO reviews (name, city, rating, reviewText) VALUES (?, ?, ?, ?)`;
+    const query = `INSERT INTO reviews (name, city, rating, reviewText) VALUES ($1, $2, $3, $4) RETURNING id`;
     
-    db.run(query, [name, city, rating, reviewText], function(err) {
+    pool.query(query, [name, city, rating, reviewText], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to save review' });
@@ -177,7 +191,7 @@ app.post('/api/reviews', (req, res) => {
                 }
             });
 
-            res.status(201).json({ id: this.lastID, message: 'Review saved successfully' });
+            res.status(201).json({ id: result.rows[0].id, message: 'Review saved successfully' });
         }
     });
 });
@@ -186,12 +200,12 @@ app.post('/api/reviews', (req, res) => {
 app.get('/api/reviews', requireAdmin, (req, res) => {
     const query = `SELECT * FROM reviews ORDER BY created_at DESC`;
     
-    db.all(query, [], (err, rows) => {
+    pool.query(query, [], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to retrieve reviews' });
         } else {
-            res.json(rows);
+            res.json(result.rows);
         }
     });
 });
@@ -205,12 +219,12 @@ app.put('/api/reviews/:id', requireAdmin, (req, res) => {
         return res.status(400).json({ error: 'Review text is required' });
     }
 
-    const query = `UPDATE reviews SET reviewText = ? WHERE id = ?`;
-    db.run(query, [reviewText, id], function(err) {
+    const query = `UPDATE reviews SET reviewText = $1 WHERE id = $2`;
+    pool.query(query, [reviewText, id], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to update review' });
-        } else if (this.changes === 0) {
+        } else if (result.rowCount === 0) {
             res.status(404).json({ error: 'Review not found' });
         } else {
             res.json({ message: 'Review updated successfully' });
@@ -222,12 +236,12 @@ app.put('/api/reviews/:id', requireAdmin, (req, res) => {
 app.get('/api/public-reviews', (req, res) => {
     const query = `SELECT name, city, rating, reviewText, created_at FROM reviews ORDER BY created_at DESC`;
     
-    db.all(query, [], (err, rows) => {
+    pool.query(query, [], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to retrieve reviews' });
         } else {
-            res.json(rows);
+            res.json(result.rows);
         }
     });
 });
@@ -236,8 +250,8 @@ app.get('/api/public-reviews', (req, res) => {
 app.post('/api/feedbacks', (req, res) => {
     const { name, feedbackText } = req.body;
     
-    const query = `INSERT INTO feedbacks (name, feedbackText) VALUES (?, ?)`;
-    db.run(query, [name, feedbackText], function(err) {
+    const query = `INSERT INTO feedbacks (name, feedbackText) VALUES ($1, $2)`;
+    pool.query(query, [name, feedbackText], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to submit feedback' });
@@ -251,12 +265,12 @@ app.post('/api/feedbacks', (req, res) => {
 app.get('/api/admin/feedbacks', requireAdmin, (req, res) => {
     const query = `SELECT id, name, feedbackText, created_at FROM feedbacks ORDER BY created_at DESC`;
     
-    db.all(query, [], (err, rows) => {
+    pool.query(query, [], (err, result) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to retrieve feedbacks' });
         } else {
-            res.json(rows);
+            res.json(result.rows);
         }
     });
 });

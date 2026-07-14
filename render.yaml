@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: urban-shine-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: urban-shine-db
+          property: connectionString
+
+databases:
+  - name: urban-shine-db
+    databaseName: urbanshine
+    user: urbanshine_user
